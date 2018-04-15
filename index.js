@@ -118,7 +118,7 @@ async function init(web3)
               await tokenInterface.init(redisInterface,web3,accountConfig,poolConfig,pool_env)
               await peerInterface.init(web3,accountConfig,poolConfig,redisInterface,tokenInterface,pool_env) //initJSONRPCServer();
               //tokenInterface.update();
-              peerInterface.listenForJSONRPC();
+              peerInterface.listenForJSONRPC(8586);
             }
       }
 
