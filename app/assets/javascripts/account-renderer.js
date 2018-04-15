@@ -48,6 +48,7 @@ export default class AccountRenderer {
         console.log('got miner data ', JSON.stringify(data));
 
         var totalShares = 0;
+	data = data.filter(item=>item.minerAddress.toString().length==42);
 
         data.map(item => item.minerData.hashRateFormatted = renderUtils.formatHashRate(item.minerData.hashRate   ))
         data.map(item => item.minerData.tokenBalanceFormatted = (item.minerData.tokenBalance / parseFloat(1e8)  ))
