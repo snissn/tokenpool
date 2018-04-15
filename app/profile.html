@@ -43,7 +43,15 @@
             </a>
           </td>
        </tr>
-        <tr> <td> Accumulated Shares: {{  miner.minerData.shareCredits }}  </td> </tr>
+       <tr> <td> Accumulated Shares: {{  miner.minerData.shareCredits }}  </td> </tr>
+       <tr> <td> Balance: {{  miner.minerData.tokenBalance }}  </td> </tr>
+
+       <tr> <td> Vardiff: {{  miner.minerData.varDiff }}  </td> </tr>
+       <tr> <td> Using Custom Vardiff: {{  miner.minerData.usingCustomDifficulty }}  </td> </tr>
+
+       <tr> <td> Hashrate: {{  miner.minerData.hashRateFormatted }}  </td> </tr>
+
+
 
      </tbody>
       </table>
@@ -58,7 +66,6 @@
             <tr >
               <td> EthBlock </td>
               <td> Time </td>
-              <td> Hashrate Est. </td>
               <td> Difficulty </td>
               <td> Nonce </td>
               <td> Is Full Solution </td>
@@ -72,10 +79,42 @@
 
               <td>    {{ item.block }} </td>
               <td>    {{ item.timeFormatted }} </td>
-              <td>    {{ item.hashRateFormatted }} </td>
               <td>    {{ item.difficulty }} </td>
               <td>    {{ item.nonce }} </td>
               <td>    {{ item.isSolution }} </td>
+
+
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+      <div id="minerInvalidSharesList" class="box background-secondary " style="overflow-x:auto; min-height:480px;">
+        <div class='subtitle'>Invalid Shares</div>
+        <table class='table table-dark'>
+
+          <thead>
+            <tr >
+              <td> EthBlock </td>
+              <td> Time </td>
+
+              <td> Difficulty </td>
+              <td> Nonce </td>
+
+            </tr>
+          </thead>
+
+          <tbody>
+
+            <tr v-for="(item, index) in shares.share_list">
+
+              <td>    {{ item.block }} </td>
+              <td>    {{ item.timeFormatted }} </td>
+
+              <td>    {{ item.difficulty }} </td>
+              <td>    {{ item.nonce }} </td>
 
 
             </tr>
@@ -105,7 +144,7 @@
 
               <td>    {{ item.block }} </td>
               <td>    {{ item.id }} </td>
-              <td>    {{ item.previousTokenBalance }} </td>
+              <td>    {{ item.previousTokenBalance  }} </td>
 
 
             </tr>
@@ -139,7 +178,7 @@
               <td>    {{ item.block }} </td>
               <td>    {{ item.status }} </td>
 
-              <td>    {{ item.tokenAmount }} </td>
+              <td>    {{ item.tokenAmount  }} </td>
 
               <td>
                     <a v-bind:href='item.etherscanTxURL' >
