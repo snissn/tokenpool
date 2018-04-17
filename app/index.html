@@ -19,8 +19,13 @@
         <div class="hero-body">
           <div class="container has-text-centered" id='jumbotron'>
             <h1 class="title font-primary-title color-primary">
-                Token Mining Pool
+                Mike.rs Mining Pool
             </h1>
+             <a href="/account" target="_blank">
+               <div class='button-bubble button-white button'>View Account Shares</div>
+             </a>
+<p></p>
+<p>Data in the database was reset Saturday evening 4/15/2018 because of a brief and now resolved issue with the geth light client causing the database to be in an inconsistent state. The pool has since upgraded to a full geth client. Unsent payouts under the payout threshold of 15 0xBTC will be sent out manually from a database snapshot in the next week (or two). This should not happen again because of the switch to a full geth node. Sorry about this!</p>
 
         <!--
             <h2 class="subtitle">
@@ -48,11 +53,31 @@
              </div>
 
              <div class="whitespace-sm"></div>
+      <p><a class='button' href="http://mike.rs/0xbitcoin-windows-gpu-miner.9.4.Azlehria.zip">Download Open source Mikers/Azlehria miner</a></p>
+      <p> (Recommended) v.9.4 Azlehria More speed + stability bugfixes.<a target=_blank href="https://github.com/snissn/0xbitcoin-gpuminer/tree/reduction">Github</a></p>
+      <p> The first time you download the miner you need to configure your ethereum account that you are mining from. You can either have the miner create a new ethereum public key + private key pair for you or input your own public key. If you do the second, you don't need to give the miner your private key.</p>
+      <pre style="text-align:left">      account new
+          or
+      account select 0x#######
+      pool select http://mike.rs:8586
+      pool mine cuda</pre>
+
+      <p> A new feature of the pool is the addition of a few new ports that let you specify a fixed diff - instead of the port 8586 where variable diff is selected</p>
+      <table style="margin:0 auto;"><tr><th style="text-align:center">Port select command</th><th style="text-align:center">Difficulty</th><tr>
+      <tr> <td><pre> pool select http://mike.rs:8586</pre></td><td><pre>Vardiff</pre></td></tr>
+      <tr> <td><pre> pool select http://mike.rs:9000</pre></td><td><pre>4096</pre></td></tr>
+      <tr> <td><pre> pool select http://mike.rs:9001</pre></td><td><pre>6144</pre></td></tr>
+      <tr> <td><pre> pool select http://mike.rs:9002</pre></td><td><pre>8192</pre></td></tr>
+      <tr> <td><pre> pool select http://mike.rs:9003</pre></td><td><pre>16384</pre></td></tr>
+      <tr> <td><pre> pool select http://mike.rs:9004</pre></td><td><pre>2048</pre></td></tr>
+      </table>
+      <p>Subsequent times mining you can just run mine.bat from explorer which will automatically use your public key and start mining. For mining from multiple cards you can use mine_many.ps1</p>
+      <p>Tutorial on getting started: <a href="https://www.reddit.com/r/0xbitcoin/comments/849qyw/tutorial_mikers_nvidia_on_tmp/" target=_blank>https://www.reddit.com/r/0xbitcoin/comments/849qyw/tutorial_mikers_nvidia_on_tmp/</a></p>
 
 
-             <a href="/account" target="_blank">
-               <div class='button-bubble button-white'>View Account Shares</div>
-             </a>
+<P>
+ previous missed payouts listed here: https://docs.google.com/spreadsheets/d/1SIq2pv5mvtFwV_QEQD12TtPZteIlQeWJZzjD-TqFPqw
+ </p>
 
              <div class="whitespace-sm"></div>
 
@@ -68,36 +93,49 @@
         <div class='title'> Start Mining 0xBitcoin </div>
         <div class='subtitle '> Download the Token Miner from Github </div>
 
-        <a href="https://github.com/0xbitcoin/0xbitcoin-miner" target="_blank">
-          <div class='button-bubble button-primary'>Download the Token Miner</div>
+        <a href="http://mike.rs/0xbitcoin-windows-gpu-miner.9.4.Azlehria.zip" target="_blank">
+          <div class='button-bubble button-primary button'>Download the Token Miner</div>
         </a>
 
 
-        <div class="toggle-mining-instructions acts-as-link color-fun-secondary">Instructions</div>
+        <div class="toggle-mining-instructions acts-as-link color-fun-secondary button">Instructions</div>
 
         <div class="mining-instructions-container">
             <div class="columns">
             <div class= "column background-primary color-orange is-half-desktop " style=" margin: 0 auto;">
-              <p>Download the mining software - version 1.5 or higher</p>
+<p>
+        <a href="http://mike.rs/0xbitcoin-windows-gpu-miner.9.4.Azlehria.zip" target="_blank">
+          <div class='button-bubble button-primary'>Download the Token Miner</div>
+        </a>
+        </p>
               <hr>
-              <p>Connect to this pool with 'pool select http://tokenminingpool.com:8586'</p>
+              <p>Connect to this pool with <pre>pool select http://mike.rs:8586</pre></p>
               <hr>
-              <p>Start mining with 'pool mine'</p>
+              <p>Start mining with 'pool mine cuda'</p>
              </div>
            </div>
      </div>
+     <p> Mining Guide</p>
+     <iframe width="560" height="315" src="https://www.youtube.com/embed/jNtNw-YsqQU" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+     <p>Multi-Card Mining Guide</p>
+     <iframe width="560" height="315" src="https://www.youtube.com/embed/ALh6DaRPob8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+             <br />
+             <a href="https://docs.google.com/spreadsheets/d/1lpQufwMHeozyz2X5Xq9MhjLr_hVTkQfzpzXcdFQDRGg/edit#gid=0" target="_blank">
+               <div class='button-bubble button-white button'>Cat of Profits Mining Profitability Calculator</div>
+             </a>
+             <br />
+             <a href="https://docs.google.com/spreadsheets/d/1lpQufwMHeozyz2X5Xq9MhjLr_hVTkQfzpzXcdFQDRGg/edit#gid=0" target=_blank ><img src='https://media.discordapp.net/attachments/429103257026297866/434971809432207360/CatOfProfits.png?width=842&height=633' width=400 /></a>
 
       </div>
 
       <div id="solutiontxlist" class="box background-secondary transaction-list " style="overflow-x:auto; min-height:480px;">
         <div class='subtitle'>Recent Solutions</div>
-        <table class='table table-dark zeroauto'>
+        <table class='table zeroauto'>
 
           <thead>
             <tr >
               <td> Block </td>
               <td> TxHash </td>
-              <td>   </td>
               <td> Status </td>
             </tr>
           </thead>
@@ -123,13 +161,12 @@
 
       <div id="transfertxlist" class="box background-secondary transaction-list  " style="overflow-x:auto; min-height:480px;">
         <div class='subtitle'>Recent Transfers</div>
-        <table class='table table-dark zeroauto'>
+        <table class='table zeroauto'>
 
           <thead>
             <tr >
               <td> Block </td>
               <td> TxHash </td>
-              <td>   </td>
               <td > Status </td>
             </tr>
           </thead>
@@ -158,7 +195,7 @@
 
         <div class="whitespace-sm"></div>
 
-        <div class='title'> Token Mining Pool </div>
+        <div class='title'> Mike.rs Mining Pool </div>
 
 
         <div class="whitespace-sm"></div>
@@ -173,10 +210,11 @@
         </div>
 
         <div class="">
-          <p> View  <a href="/overview" target="_blank"> Server Health </a> </p>
+          <P><img src="https://images-ext-1.discordapp.net/external/6FXDqa-sPWh7keBvNiTTgztjltUhuL0wPNX2tcMj_BM/https/i.imgur.com/SS7jqLt.png" /></p>
 
 
           <p> Read more on <a href="https://reddit.com/r/tokenmining" target="_blank"> Reddit </a> </p>
+
 
 
         </div>
