@@ -21,6 +21,13 @@
             <h1 class="title font-primary-title color-primary">
                 Mike.rs Mining Pool
             </h1>
+              <a v-bind:href='pool.poolData.etherscanMintingURL' >
+                <p>Minting: {{pool.poolData.mintingAddress}}</p>
+              </a>
+
+              <a v-bind:href='pool.poolData.etherscanPaymentURL' >
+                <p>Payments: {{pool.poolData.paymentAddress}}</p>
+              </a>
              <a href="/account" target="_blank">
                <div class='button-bubble button-white button'>View Account Shares</div>
              </a>
@@ -50,13 +57,6 @@
           -->
 
 
-              <a v-bind:href='pool.poolData.etherscanMintingURL' >
-                <p>Minting: {{pool.poolData.mintingAddress}}</p>
-              </a>
-
-              <a v-bind:href='pool.poolData.etherscanPaymentURL' >
-                <p>Payments: {{pool.poolData.paymentAddress}}</p>
-              </a>
 
               <div class="whitespace-sm"></div>
 
