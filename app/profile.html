@@ -46,6 +46,13 @@
        <tr> <td> Balance: {{  miner.minerData.tokenBalanceFormatted }}  </td> </tr>
        <tr> <td> <a href='/account'>View Hashrate on /account</a>   </td> </tr>
        <tr> <td> Accumulated Shares: {{  miner.minerData.shareCredits }}  </td> </tr>
+       <tr> <td> Balance: {{  miner.minerData.tokenBalance }}  </td> </tr>
+
+       <tr> <td> Vardiff: {{  miner.minerData.varDiff }}  </td> </tr>
+       <tr> <td> Using Custom Vardiff: {{  miner.minerData.usingCustomDifficulty }}  </td> </tr>
+
+       <tr> <td> Hashrate: {{  miner.minerData.hashRateFormatted }}  </td> </tr>
+
 
      </tbody>
       </table>
@@ -60,7 +67,6 @@
             <tr >
               <td> EthBlock </td>
               <td> Time </td>
-              <td> Hashrate Est. </td>
               <td> Difficulty </td>
               <td> Nonce </td>
               <td> Is Full Solution </td>
@@ -74,7 +80,6 @@
 
               <td>    {{ item.block }} </td>
               <td>    {{ item.timeFormatted }} </td>
-              <td>    {{ item.hashRateFormatted }} </td>
               <td>    {{ item.difficulty }} </td>
               <td>    {{ item.nonce }} </td>
               <td>    {{ item.isSolution }} </td>

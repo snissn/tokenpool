@@ -4,6 +4,7 @@ import Vue from 'vue';
 
 var blockies = require('ethereum-blockies')
 var io = require('socket.io-client');
+var renderUtils = require('./render-utils')
 
 
 var app;
@@ -47,15 +48,16 @@ export default class AccountRenderer {
         console.log('got miner data ', JSON.stringify(data));
 
         var totalShares = 0;
+	data = data.filter(item=>item.minerAddress.toString().length==42);
 
         data.map(item => item.minerData.tokenBalanceFormatted = (item.minerData.tokenBalance /10**8   ).toFixed(2))
         data.map(item => item.minerData.tokenRewardsFormatted = (item.minerData.tokensAwarded  /10**8  ).toFixed(2))
+        data.map(item => item.minerData.hashRateFormatted = renderUtils.formatHashRate(item.minerData.hashRate   ))
           data.map(item =>  (totalShares =  (totalShares + item.minerData.shareCredits) ) )
 
           data.map(item => item.minerData.sharesPercent = (  ((item.minerData.shareCredits / parseFloat(totalShares)) * 100  ).toFixed(2).toString() + '%')   )
          data.map(item => item.profileURL = ('/profile/?address=' + item.minerAddress.toString())  )
 
-        data.map(item => item.minerData.hashRateFormatted = self.formatHashRate(1100000000000*item.minerData.shareCredits / parseFloat(totalShares)  ))
 
 
 
@@ -136,30 +138,6 @@ export default class AccountRenderer {
 
      htmlEntities(str) {
         return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    }
-
-
-    formatHashRate(hashRate)
-    {
-      if(hashRate==null || hashRate==0)
-      {
-        return "--";
-      }
-
-      hashRate = parseFloat(hashRate);
-
-      if(hashRate > 10e9)
-      {
-        return (Math.round(hashRate / (10e9),2).toString() + "Gh/s");
-      }else if(hashRate > 10e6)
-      {
-        return (Math.round(hashRate / (10e6),2).toString() + "Mh/s");
-      }else if(hashRate > 10e3)
-      {
-        return (Math.round(hashRate / (10e3),2).toString() + "Kh/s");
-      }else{
-         return (Math.round(hashRate ,2).toString() + "H/s");
-      }
     }
 
 
