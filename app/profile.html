@@ -43,12 +43,8 @@
             </a>
           </td>
        </tr>
+       <tr> <td> Balance: {{  miner.minerData.tokenBalanceFormatted }}  </td> </tr>
        <tr> <td> Accumulated Shares: {{  miner.minerData.shareCredits }}  </td> </tr>
-       <tr> <td> Balance: {{  miner.minerData.tokenBalance }}  </td> </tr>
-
-       <tr> <td> Vardiff: {{  miner.minerData.varDiff }}  </td> </tr>
-       <tr> <td> Using Custom Vardiff: {{  miner.minerData.usingCustomDifficulty }}  </td> </tr>
-
        <tr> <td> Hashrate: {{  miner.minerData.hashRateFormatted }}  </td> </tr>
 
 
@@ -144,7 +140,7 @@
 
               <td>    {{ item.block }} </td>
               <td>    {{ item.id }} </td>
-              <td>    {{ item.previousTokenBalance  }} </td>
+              <td>    {{ item.previousTokenBalanceFormatted  }} </td>
 
 
             </tr>
@@ -178,7 +174,7 @@
               <td>    {{ item.block }} </td>
               <td>    {{ item.status }} </td>
 
-              <td>    {{ item.tokenAmount  }} </td>
+              <td>    {{ item.tokenAmountFormatted  }} </td>
 
               <td>
                     <a v-bind:href='item.etherscanTxURL' >

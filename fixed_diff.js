@@ -83,7 +83,7 @@ async function init(web3)
         //  var cpuCount = require('os').cpus().length;
 
           // Create a worker for each CPU
-          for (var i = 0; i < 5; i += 1) {
+          for (var i = 0; i < 7; i += 1) {
               cluster.fork();
           }
       // Code to run if we're in a worker process
