@@ -58,9 +58,6 @@ export default class AccountRenderer {
           data.map(item => item.minerData.sharesPercent = (  ((item.minerData.shareCredits / parseFloat(totalShares)) * 100  ).toFixed(2).toString() + '%')   )
          data.map(item => item.profileURL = ('/profile/?address=' + item.minerAddress.toString())  )
 
-
-
-
          data.sort(function(a, b){return b.minerData.shareCredits - a.minerData.shareCredits});
 
 
