@@ -48,13 +48,14 @@ export default class AccountRenderer {
 
         var totalShares = 0;
 
-        data.map(item => item.minerData.hashRateFormatted = self.formatHashRate(item.minerData.hashRate   ))
-        data.map(item => item.minerData.tokenBalanceFormatted = (item.minerData.tokenBalance / parseFloat(1e8)  ))
-        data.map(item => item.minerData.tokenRewardsFormatted = (item.minerData.tokensAwarded / parseFloat(1e8)  ))
+        data.map(item => item.minerData.tokenBalanceFormatted = (item.minerData.tokenBalance /10**8   ).toFixed(2))
+        data.map(item => item.minerData.tokenRewardsFormatted = (item.minerData.tokensAwarded  /10**8  ).toFixed(2))
           data.map(item =>  (totalShares =  (totalShares + item.minerData.shareCredits) ) )
 
           data.map(item => item.minerData.sharesPercent = (  ((item.minerData.shareCredits / parseFloat(totalShares)) * 100  ).toFixed(2).toString() + '%')   )
          data.map(item => item.profileURL = ('/profile/?address=' + item.minerAddress.toString())  )
+
+        data.map(item => item.minerData.hashRateFormatted = self.formatHashRate(1500000000000*item.minerData.shareCredits / parseFloat(totalShares)  ))
 
 
 

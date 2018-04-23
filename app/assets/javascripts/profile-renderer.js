@@ -71,6 +71,7 @@ export default class ProfileRenderer {
      data.etherscanURL = ('https://etherscan.io/address/'+minerAddress.toString());
 
      data.tokenBalanceFormatted = self.formatTokenQuantity( data.tokenBalance );
+     data.hashRateFormatted = self.formatHashRate( data.hashRate);
 
      console.log('got miner details')
      console.dir(  data );
@@ -95,7 +96,7 @@ export default class ProfileRenderer {
 
     this.socket.on('minerBalanceTransfers', function (data) {
 
-      data.map(item => item.etherscanTxURL = ('https://etherscan.io/tx/' + item.txHash.toString())  )
+      data.map(item => item.etherscanTxURL = item.txHash ? ('https://etherscan.io/tx/' + item.txHash.toString()):""  )
 
       data.map(item => item.tokenAmountFormatted  = self.formatTokenQuantity(item.tokenAmount)    )
 
@@ -251,7 +252,8 @@ export default class ProfileRenderer {
 
   formatTokenQuantity(satoshis)
   {
-    return (parseFloat(satoshis) / parseFloat(1e8)).toString();
+    var quantity = (parseFloat(satoshis) / parseFloat(1e8)).toFixed(2)
+    return quantity;
   }
 
 
