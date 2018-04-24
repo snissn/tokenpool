@@ -32,22 +32,13 @@
                <div class='button-bubble button-white button'>View Account Shares</div>
              </a>
 <p></p>
+<p>April 22, 2018 Update:</p>
+ <p> Updated Hashrate estimated code + performance fixes </p>
+ <p> Join the discord: <a target=_blank href="https://discordapp.com/invite/G7twxAg">https://discordapp.com/invite/G7twxAg</a></p>
 <p>April 21, 2018 Update:</p>
 <p>Pool difficulty has been updated to require all miners to use a difficulty of 6144 (6*1024). This is required to fairly ensure that no miner is at a disadvantage from the other and should promote fair payouts. All mining ports are now equivalent.</p>
-<p>If you are using the MVI miner with a fixed difficulty you will need to change it. Below is a list of public keys that need to update to a fixed diff 6144:</p>
-<pre>0x1C46facAFd2589999494793aEb68597fDdDe0500
-0x59D63178eb1D9F1a0472d6297C9Da4F655e0e3bC
-0x883eea9797f4a648c4e7a363f35d9f70810dd4ec
-0x95ebc4a2560017907b7cbe4e138a8e081463d829
-0x97D0ac717310060Dd93EdA2C92ad5696b95eA8C9
-0x9b1a161bdb6cd429e12e09fdd287de2c094f4295
-0xB2DBfE83F4D2cb3259b59f7b37daa5b863BD4c1f
-0xa388585123f7065CBDBd51745D3546DDF98bFEa7
-0xb5169e66CFf142fC4F46a14ec3114Be06568cB8b
-0xbd4Ae0dc3c0FA45e0119d3C108acDe1DaD5E7825
-0xcbb91A5CD898C69E9FA33c062B787eb68C8fEc6A
-0xf3f2eD3D1790E535D364b152392F31Ca0bDBf966</pre>
-<p>Still working on payouts from db reset on April 15th.  </p>
+<p>If you are using the MVI miner with a fixed difficulty you will need to change it. </p>
+<p>Working on payouts from db reset on April 15th.  </p>
 <!--<p>Data in the database was reset Saturday evening 4/15/2018 because of a brief and now resolved issue with the geth light client causing the database to be in an inconsistent state. The pool has since upgraded to a full geth client. Unsent payouts under the payout threshold of 15 0xBTC will be sent out manually from a database snapshot in the next week (or two). This should not happen again because of the switch to a full geth node. Sorry about this!</p>-->
 
         <!--
@@ -87,14 +78,10 @@
       pool select http://mike.rs:8586
       pool mine cuda</pre>
 
+      <p>  All ports enforce the same difficulty of 6144 for simplicity and fairness. Please just use port 8586 as other ports are redudnant.</p>
       <p> All ports enforce the same difficulty of 6144 for simplicity and fairness</p>
       <table style="margin:0 auto;"><tr><th style="text-align:center">Port select command</th><th style="text-align:center">Difficulty</th><tr>
       <tr> <td><pre> pool select http://mike.rs:8586</pre></td><td><pre>6144</pre></td></tr>
-      <tr> <td><pre> pool select http://mike.rs:9000</pre></td><td><pre>6144</pre></td></tr>
-      <tr> <td><pre> pool select http://mike.rs:9001</pre></td><td><pre>6144</pre></td></tr>
-      <tr> <td><pre> pool select http://mike.rs:9002</pre></td><td><pre>6144</pre></td></tr>
-      <tr> <td><pre> pool select http://mike.rs:9003</pre></td><td><pre>6144</pre></td></tr>
-      <tr> <td><pre> pool select http://mike.rs:9004</pre></td><td><pre>6144</pre></td></tr>
       </table>
       <p>Subsequent times mining you can just run mine.bat from explorer which will automatically use your public key and start mining. For mining from multiple cards you can use mine_many.ps1</p>
       <p>Tutorial on getting started: <a href="https://www.reddit.com/r/0xbitcoin/comments/849qyw/tutorial_mikers_nvidia_on_tmp/" target=_blank>https://www.reddit.com/r/0xbitcoin/comments/849qyw/tutorial_mikers_nvidia_on_tmp/</a></p>
