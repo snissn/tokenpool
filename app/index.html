@@ -21,6 +21,13 @@
             <h1 class="title font-primary-title color-primary">
                 Mike.rs Mining Pool
             </h1>
+            <p><a href="http://github.com/snissn/tokenpool/" target=_blank><img src="https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png" width=50 /></a></p>
+            <p><a href="http://github.com/snissn/tokenpool/" target=_blank>
+            
+               <div class='button-bubble button-white button'>
+            This is a fully open source pool, read the source, build your own. </div></a></p>
+            <h2>🚀 Pool fees are 3%!🚀</h2>
+
               <a v-bind:href='pool.poolData.etherscanMintingURL' >
                 <p>Minting: {{pool.poolData.mintingAddress}}</p>
               </a>
@@ -32,20 +39,10 @@
                <div class='button-bubble button-white button'>View Account Shares</div>
              </a>
 <p></p>
-<p>April 22, 2018 Update:</p>
- <p> Updated Hashrate estimated code + performance fixes </p>
- <p> Join the discord: <a target=_blank href="https://discordapp.com/invite/G7twxAg">https://discordapp.com/invite/G7twxAg</a></p>
-<p>April 21, 2018 Update:</p>
-<p>Pool difficulty has been updated to require all miners to use a difficulty of 6144 (6*1024). This is required to fairly ensure that no miner is at a disadvantage from the other and should promote fair payouts. All mining ports are now equivalent.</p>
-<p>If you are using the MVI miner with a fixed difficulty you will need to change it. </p>
-<p>Working on payouts from db reset on April 15th.  </p>
-<!--<p>Data in the database was reset Saturday evening 4/15/2018 because of a brief and now resolved issue with the geth light client causing the database to be in an inconsistent state. The pool has since upgraded to a full geth client. Unsent payouts under the payout threshold of 15 0xBTC will be sent out manually from a database snapshot in the next week (or two). This should not happen again because of the switch to a full geth node. Sorry about this!</p>-->
 
-        <!--
             <h2 class="subtitle">
-              Mine 0xBitcoin with us
+              Mine 0xBitcoin with AMD + NVIDIA + CPU Pool Mining
             </h2>
-          -->
 
 
 
@@ -60,17 +57,21 @@
              </div>
 
              <div class="whitespace-sm"></div>
-      <p><a class='button' href="https://drive.google.com/open?id=1zL-hpiyxP2kwU3wIuQz6SDCPWFar-V76">Download Windows Nvidia HashburnerV1 Miner</a></p>
-      <p>(Newest+Fastest Release) <a href="https://www.reddit.com/r/0xbitcoin/comments/8bh54d/build_cosmic_community_opensource_miner_including/" target=_blank>https://www.reddit.com/r/0xbitcoin/comments/8bh54d/build_cosmic_community_opensource_miner_including/</a> </p>
+      <p><a class='button' href="https://bitbucket.org/LieutenantTofu/cosmic-v3/downloads/">Download Windows Nvidia HashburnerV3 Miner (Opensource+Newest+Fastest Release)</a></p>
+      <p><a class='button' href="https://github.com/mining-visualizer/MVis-tokenminer/releases">Download AMD MVI Miner</a></p>
+      <!--<p>(Opensource+Newest+Fastest Release) <a href="https://bitbucket.org/LieutenantTofu/cosmic-v3/downloads/" target=_blank>Link to download + source: https://bitbucket.org/LieutenantTofu/cosmic-v3/downloads/</a> </p>
             <p><a class='button' href="http://mike.rs/0xbitcoin-windows-gpu-miner.9.4.Azlehria.zip">Download Open source Mikers/Azlehria miner</a></p>
 
       <p>  v.9.4 Azlehria More speed + stability bugfixes.<a target=_blank href="https://github.com/snissn/0xbitcoin-gpuminer/tree/reduction">Github</a></p>
+      -->
+            <p><a class='button' href="http://mike.rs/0xbitcoin-linux-2018-04-04.zip">Download Open source Linux Mikers/Azlehria miner</a></p>
              <br />
              <a href="https://docs.google.com/spreadsheets/d/1lpQufwMHeozyz2X5Xq9MhjLr_hVTkQfzpzXcdFQDRGg/edit#gid=0" target="_blank">
                <div class='button-bubble button-white button'>Cat of Profits Mining Profitability Calculator</div>
              </a>
              <br />
              <a href="https://docs.google.com/spreadsheets/d/1lpQufwMHeozyz2X5Xq9MhjLr_hVTkQfzpzXcdFQDRGg/edit#gid=0" target=_blank ><img src='https://media.discordapp.net/attachments/429103257026297866/434971809432207360/CatOfProfits.png?width=842&height=633' width=400 /></a>
+      <!--
       <p> The first time you download the miner you need to configure your ethereum account that you are mining from. You can either have the miner create a new ethereum public key + private key pair for you or input your own public key. If you do the second, you don't need to give the miner your private key.</p>
       <pre style="text-align:left">      account new
           or
@@ -90,6 +91,7 @@
 <P>
  previous missed payouts listed here: https://docs.google.com/spreadsheets/d/1SIq2pv5mvtFwV_QEQD12TtPZteIlQeWJZzjD-TqFPqw
  </p>
+ -->
 
              <div class="whitespace-sm"></div>
 
@@ -102,12 +104,7 @@
 
 
       <div id="guide" class="box background-secondary has-text-centered ">
-        <div class='title'> Start Mining 0xBitcoin </div>
-        <div class='subtitle '> Download the Token Miner from Github </div>
-
-        <a href="http://mike.rs/0xbitcoin-windows-gpu-miner.9.4.Azlehria.zip" target="_blank">
-          <div class='button-bubble button-primary button'>Download the Token Miner</div>
-        </a>
+        <div class='title'> Start Mining 0xBitcoin Guide</div>
 
 
         <div class="toggle-mining-instructions acts-as-link color-fun-secondary button">Instructions</div>
@@ -127,11 +124,13 @@
              </div>
            </div>
      </div>
-     <p> Mining Guide</p>
+     <p>Cuda Mining Guide</p>
      <iframe width="560" height="315" src="https://www.youtube.com/embed/jNtNw-YsqQU" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
      <p>Multi-Card Mining Guide</p>
      <iframe width="560" height="315" src="https://www.youtube.com/embed/ALh6DaRPob8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-             <br />
+     <p>AMD Mining Guide</p>
+     <iframe width="560" height="315" src="https://www.youtube.com/embed/W-gLERwzKno" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <br />
              <a href="https://docs.google.com/spreadsheets/d/1lpQufwMHeozyz2X5Xq9MhjLr_hVTkQfzpzXcdFQDRGg/edit#gid=0" target="_blank">
                <div class='button-bubble button-white button'>Cat of Profits Mining Profitability Calculator</div>
              </a>
@@ -199,6 +198,11 @@
           </tbody>
         </table>
 
+<h4>Notes</h4>
+<p> Hashrate estimate reliability is being worked on. Share #s are reliable </p>
+<p> Also working on adding graphs to the account page </p>
+<p>Payouts from db reset here: <a href="https://docs.google.com/spreadsheets/d/10gpAcym3o4ywAUsy1YAaAehTA0DgymLZxYVWGbC5h9Q/edit#gid=187626846" target=_blank>https://docs.google.com/spreadsheets/d/10gpAcym3o4ywAUsy1YAaAehTA0DgymLZxYVWGbC5h9Q/edit#gid=187626846</a>  </p>
+<!--<p>Data in the database was reset Saturday evening 4/15/2018 because of a brief and now resolved issue with the geth light client causing the database to be in an inconsistent state. The pool has since upgraded to a full geth client. Unsent payouts under the payout threshold of 15 0xBTC will be sent out manually from a database snapshot in the next week (or two). This should not happen again because of the switch to a full geth node. Sorry about this!</p>-->
       </div>
 
 
