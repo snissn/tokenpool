@@ -1,3 +1,9 @@
+<style>
+.page-container{
+  max-width: 1260px;
+  margin: 0 auto;
+}
+</style>
 <nav id="navbar" class="navbar slate-theme-dark" role="navigation" aria-label="main navigation">
        <div class="navbar-brand" style="padding-left:10px;">
          <a class="navbar-item" href="/">
@@ -8,16 +14,29 @@
 
        </div>
 
-       <div class="navbar-menu">
-         <div class="navbar-end" style="padding:5px;">
-           <a href="https://github.com/0xbitcoin/tokenpool" target="_blank">
-             <img :src="githubLogo" height="28" width="28" target="_blank"/>
-           </a>
+<div id="NavMenu" class="navbar-menu">
+	<div class="navbar-start">
+		<a href="/account" class="navbar-item">
+		&nbsp;View Account Shares&nbsp;</a>
+		 <a href="/overview" class="navbar-item">
+		&nbsp;Pool Info&nbsp;</a>
+             <a href="https://discord.gg/G7twxAg" class='navbar-item' target="_blank">
+               Mike.rs Pool Official Discord
+             </a>
+             <a href="https://www.teepublic.com/user/0xbtcat" class='navbar-item' target="_blank">
+               0xBTC Merch
+             </a>
+             <a href="https://docs.google.com/spreadsheets/d/1lpQufwMHeozyz2X5Xq9MhjLr_hVTkQfzpzXcdFQDRGg/edit#gid=0" class='navbar-item' target="_blank"><img src="https://media.discordapp.net/attachments/429103257026297866/434971809432207360/CatOfProfits.png" width=30 />
+               Mining Calculator
+             </a>
+<!--
+		 <a href="/profile" class="navbar-item">
+		&nbsp;Miner Info&nbsp;</a>
+		 <a href="/gettingstarted" class="navbar-item">
+		&nbsp;Getting Started</a>
+-->
+	</div>
+</div>
 
-
-
-
-
-         </div>
        </div>
 </nav>
