@@ -8,7 +8,7 @@
 
   </head>
   <body>
-
+    </script>
         <%= require('html-loader!./assets/html/navbar.html') %>
 
 
@@ -54,10 +54,8 @@
     <div class="card">
       <div class="card-body text-center">
         <h2 class="card-title">Effective Poolside Hashrate</h2>
-        <h4 class="card-text btn btn-primary" style='font-size:24px' v-cloak>
-        <img style="height:30px; margin-bottom:5px;" src="/app/assets/images/0xbitcoin.png"/  class="xbtc">
+        <h4 class="card-text btn " style='font-size:24px' v-cloak>
         {{  miner.minerData.hashRateFormatted }}
-        <img style="height:30px; margin-bottom:5px;" src="/app/assets/images/0xbitcoin.png"/  class="xbtc">
         </h4>
       </div>
     </div>
@@ -66,10 +64,8 @@
     <div class="card">
       <div class="card-body text-center">
         <h2 class="card-title">Accumulated Shares This Block</h2>
-        <h4 class="card-text btn btn-primary" style='font-size:24px' v-cloak>
-        <img style="height:30px; margin-bottom:5px;" src="/app/assets/images/0xbitcoin.png"/  class="xbtc">
+        <h4 class="card-text btn " style='font-size:24px' v-cloak>
         {{ miner.minerData.shareCredits / 6144 }} 
-        <img style="height:30px; margin-bottom:5px;" src="/app/assets/images/0xbitcoin.png"/  class="xbtc">
         </h4>
       </div>
     </div>
@@ -78,10 +74,8 @@
     <div class="card">
       <div class="card-body text-center">
         <h2 class="card-title">Unpaid 0xBitcoin Balance</h2>
-        <h4 class="card-text btn btn-primary" style='font-size:24px' v-cloak> 
-        <img style="height:30px; margin-bottom:5px;" src="/app/assets/images/0xbitcoin.png"/  class="xbtc">
+        <h4 class="card-text btn " style='font-size:24px' v-cloak> 
         {{  miner.minerData.tokenBalanceFormatted }}  / 15.00 
-        <img style="height:30px; margin-bottom:5px;" src="/app/assets/images/0xbitcoin.png"/  class="xbtc">
         </h4>
       </div>
     </div>
@@ -90,10 +84,8 @@
     <div class="card">
       <div class="card-body text-center">
         <h2 class="card-title">Total 0xBitcoin Paid Out</h2>
-        <h4 class="card-text btn btn-primary" style='font-size:24px' v-cloak>
-        <img style="height:30px; margin-bottom:5px;" src="/app/assets/images/0xbitcoin.png"/  class="xbtc">
+        <h4 class="card-text btn " style='font-size:24px' v-cloak>
         {{ miner.minerData.tokensAwardedFormatted }}
-        <img style="height:30px; margin-bottom:5px;" src="/app/assets/images/0xbitcoin.png"/  class="xbtc">
         </h4>
       </div>
     </div>
@@ -118,142 +110,113 @@
       </div>
 
 
-      <div id="minerSubmittedSharesList" class="box background-secondary " style="overflow-x:auto; min-height:480px;">
-        <div class='subtitle'>Submitted Shares</div>
-        <table class='table '>
 
-          <thead>
+<ul class="nav nav-tabs" id="tabPanel" role="tablist">
+   <li class="nav-item">
+      <a class="nav-link active" data-toggle="tab" href="#minerSubmittedSharesList">Submitted Shares</a>
+   </li>
+   <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#minerInvalidSharesList">Invalid Shares</a>
+   </li>
+   <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#minerBalanceTransfersList">Balance Transfer Receipts</a>
+   </li>
+   <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#minerBalancePaymentsList">Balance Payouts</a>
+   </li>
+</ul>
+<div class="tab-content">
+   <div id="minerSubmittedSharesList" class="tab-pane active box background-secondary " style="overflow-x:auto; min-height:480px;">
+      <div class='subtitle'>Submitted Shares</div>
+      <canvas id="submittedCanvas"></canvas>
+      <table class='table '>
+         <thead>
             <tr >
-              <td> EthBlock </td>
-              <td> Time </td>
-              <td> Difficulty </td>
-              <td> Nonce </td>
-              <td> Is Full Solution </td>
-
+               <td> EthBlock </td>
+               <td> Time </td>
+               <td> Difficulty </td>
+               <td> Nonce </td>
+               <td> Is Full Solution </td>
             </tr>
-          </thead>
-
-          <tbody>
-
+         </thead>
+         <tbody>
             <tr v-for="(item, index) in shares.share_list">
-
-              <td>    {{ item.block }} </td>
-              <td>    {{ item.timeFormatted }} </td>
-              <td>    {{ item.difficulty }} </td>
-              <td>    {{ item.nonce }} </td>
-              <td>    {{ item.isSolution }} </td>
-
-
+               <td>    {{ item.block }} </td>
+               <td>    {{ item.timeFormatted }} </td>
+               <td>    {{ item.difficulty }} </td>
+               <td>    {{ item.nonce }} </td>
+               <td>    {{ item.isSolution }} </td>
             </tr>
-
-          </tbody>
-
-        </table>
-
-      </div>
-      <div id="minerInvalidSharesList" class="box background-secondary " style="overflow-x:auto; min-height:480px;">
-        <div class='subtitle'>Invalid Shares</div>
-        <table class='table '>
-
-          <thead>
+         </tbody>
+      </table>
+   </div>
+   <div id="minerInvalidSharesList" class="tab-pane box background-secondary " style="overflow-x:auto; min-height:480px;">
+      <div class='subtitle'>Invalid Shares</div>
+      <canvas id="invalidCanvas"></canvas>
+      <table class='table '>
+         <thead>
             <tr >
-              <td> EthBlock </td>
-              <td> Time </td>
-
-              <td> Difficulty </td>
-              <td> Nonce </td>
-
+               <td> EthBlock </td>
+               <td> Time </td>
+               <td> Difficulty </td>
+               <td> Nonce </td>
             </tr>
-          </thead>
-
-          <tbody>
-
+         </thead>
+         <tbody>
             <tr v-for="(item, index) in shares.share_list">
-
-              <td>    {{ item.block }} </td>
-              <td>    {{ item.timeFormatted }} </td>
-
-              <td>    {{ item.difficulty }} </td>
-              <td>    {{ item.nonce }} </td>
-
-
+               <td>    {{ item.block }} </td>
+               <td>    {{ item.timeFormatted }} </td>
+               <td>    {{ item.difficulty }} </td>
+               <td>    {{ item.nonce }} </td>
             </tr>
-
-          </tbody>
-
-        </table>
-
-      </div>
-
-
-      <div id="minerBalanceTransfersList" class="box background-secondary " style="overflow-x:auto; min-height:480px;">
-        <div class='subtitle'>Balance Transfers Reciepts</div>
-        <table class='table '>
-
-          <thead>
+         </tbody>
+      </table>
+   </div>
+   <div id="minerBalanceTransfersList" class="tab-pane box background-secondary " style="overflow-x:auto; min-height:480px;">
+      <div class='subtitle'>Balance Transfers Reciepts</div>
+      <table class='table '>
+         <thead>
             <tr >
-              <td> EthBlock </td>
-                <td> Amount Sent </td>
-              <td> Tx Hash </td>
-              <td> Payment Id  </td>
-
-
+               <td> EthBlock </td>
+               <td> Amount Sent </td>
+               <td> Tx Hash </td>
+               <td> Payment Id  </td>
             </tr>
-          </thead>
-
-          <tbody>
-
+         </thead>
+         <tbody>
             <tr v-for="(item, index) in transactions.tx_list">
-
-              <td>    {{ item.block }} </td>
-              <td>    {{ item.tokenAmountFormatted  }} </td>
-              <td>
-                    <a v-bind:href='item.etherscanTxURL' >
-                      <p>  {{ item.txHash }}  </p>
-                    </a>
-              </td>
-
-
-
-              <td>    {{ item.balancePaymentId }} </td>
-
+               <td>    {{ item.block }} </td>
+               <td>    {{ item.tokenAmountFormatted  }} </td>
+               <td>
+                  <a v-bind:href='item.etherscanTxURL' >
+                     <p>  {{ item.txHash }}  </p>
+                  </a>
+               </td>
+               <td>    {{ item.balancePaymentId }} </td>
             </tr>
-
-          </tbody>
-
-        </table>
-
-      </div>
-
-      <div id="minerBalancePaymentsList" class="box background-secondary " style="overflow-x:auto; min-height:480px;">
-        <div class='subtitle'>Balance Payouts</div>
-        <table class='table '>
-
-          <thead>
+         </tbody>
+      </table>
+   </div>
+   <div id="minerBalancePaymentsList" class="tab-pane box background-secondary " style="overflow-x:auto; min-height:480px;">
+      <div class='subtitle'>Balance Payouts</div>
+      <table class='table '>
+         <thead>
             <tr >
-              <td> EthBlock </td>
-              <td> Id  </td>
-              <td> Balance Paid </td>
-
+               <td> EthBlock </td>
+               <td> Id  </td>
+               <td> Balance Paid </td>
             </tr>
-          </thead>
-
-          <tbody>
-
+         </thead>
+         <tbody>
             <tr v-for="(item, index) in transactions.tx_list">
-
-              <td>    {{ item.block }} </td>
-              <td>    {{ item.id }} </td>
-              <td>    {{ item.previousTokenBalanceFormatted  }} </td>
-
-
+               <td>    {{ item.block }} </td>
+               <td>    {{ item.id }} </td>
+               <td>    {{ item.previousTokenBalanceFormatted  }} </td>
             </tr>
-
-          </tbody>
-
-        </table>
-
-      </div>
+         </tbody>
+      </table>
+   </div>
+</div>
 
 
 
@@ -288,5 +251,7 @@
         <pre>[0xBitcoin]
         MinutesPerShare=Pool</pre>
 
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   </body>
 </html>
