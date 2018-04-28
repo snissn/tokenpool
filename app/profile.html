@@ -32,26 +32,89 @@
       </section>
 
 
-      <div id="jumbotron" class="box  background-secondary " style="overflow-x:auto; min-height:480px;">
-        <div class='subtitle'>Miner Stats</div>
-        <h4>If you are mining MVI's AMD miner, make sure that your config file has MinutesPerShare=Pool:</h4>
-        <pre>[0xBitcoin]
-        MinutesPerShare=Pool</pre>
-      <table class='table '>
-      <tbody>
-        <tr>
-           <td> Address:
+      <div id="jumbotron" class="box  background-secondary " style="overflow-x:auto; ">
+        <div class='subtitle text-center'>
             <a v-bind:href='miner.minerData.etherscanURL'>
             {{miner.minerData.address}}
             </a>
-          </td>
-       </tr>
-       <tr> <td> Balance: {{  miner.minerData.tokenBalanceFormatted }}  </td> </tr>
-       <tr> <td> Accumulated Shares: {{  miner.minerData.shareCredits }}  </td> </tr>
-       <tr> <td> Hashrate: {{  miner.minerData.hashRateFormatted }}  </td> </tr>
+        </div>
+<style type="text/css">
+.xbtc{
+  height:30px;
+  margin-bottom:6px;
+}
+</style>
 
-     </tbody>
-      </table>
+
+
+
+
+<div class="row">
+  <div class="col-sm-3">
+    <div class="card">
+      <div class="card-body text-center">
+        <h2 class="card-title">Hashrate<br />&nbsp;</h2>
+        <h4 class="card-text btn btn-primary" style='font-size:24px' v-cloak>
+        <img style="height:30px; margin-bottom:5px;" src="/app/assets/images/0xbitcoin.png"/  class="xbtc">
+        {{  miner.minerData.hashRateFormatted }}
+        <img style="height:30px; margin-bottom:5px;" src="/app/assets/images/0xbitcoin.png"/  class="xbtc">
+        </h4>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3">
+    <div class="card">
+      <div class="card-body text-center">
+        <h2 class="card-title">Total 0xBitcoin Paid Out</h2>
+        <h4 class="card-text btn btn-primary" style='font-size:24px' v-cloak>
+        <img style="height:30px; margin-bottom:5px;" src="/app/assets/images/0xbitcoin.png"/  class="xbtc">
+        {{ miner.minerData.tokensAwardedFormatted }}
+        <img style="height:30px; margin-bottom:5px;" src="/app/assets/images/0xbitcoin.png"/  class="xbtc">
+        </h4>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3">
+    <div class="card">
+      <div class="card-body text-center">
+        <h2 class="card-title">Unpaid 0xBitcoin Balance</h2>
+        <h4 class="card-text btn btn-primary" style='font-size:24px' v-cloak> 
+        <img style="height:30px; margin-bottom:5px;" src="/app/assets/images/0xbitcoin.png"/  class="xbtc">
+        {{  miner.minerData.tokenBalanceFormatted }}  / 15.00 
+        <img style="height:30px; margin-bottom:5px;" src="/app/assets/images/0xbitcoin.png"/  class="xbtc">
+        </h4>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3">
+    <div class="card">
+      <div class="card-body text-center">
+        <h2 class="card-title">Accumulated Shares</h2>
+        <h4 class="card-text btn btn-primary" style='font-size:24px' v-cloak>
+        <img style="height:30px; margin-bottom:5px;" src="/app/assets/images/0xbitcoin.png"/  class="xbtc">
+        {{ miner.minerData.shareCredits }} 
+        <img style="height:30px; margin-bottom:5px;" src="/app/assets/images/0xbitcoin.png"/  class="xbtc">
+        </h4>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<p>&nbsp;</p>
+<p>The Hashrate is automatically updated every 30 seconds.</p>
+
+
+
+
+
+
+
+
+
+
+
+
       </div>
 
 
@@ -122,8 +185,48 @@
 
       </div>
 
+
+      <div id="minerBalanceTransfersList" class="box background-secondary " style="overflow-x:auto; min-height:480px;">
+        <div class='subtitle'>Balance Transfers Reciepts</div>
+        <table class='table '>
+
+          <thead>
+            <tr >
+              <td> EthBlock </td>
+                <td> Amount Sent </td>
+              <td> Tx Hash </td>
+              <td> Payment Id  </td>
+
+
+            </tr>
+          </thead>
+
+          <tbody>
+
+            <tr v-for="(item, index) in transactions.tx_list">
+
+              <td>    {{ item.block }} </td>
+              <td>    {{ item.tokenAmountFormatted  }} </td>
+              <td>
+                    <a v-bind:href='item.etherscanTxURL' >
+                      <p>  {{ item.txHash }}  </p>
+                    </a>
+              </td>
+
+
+
+              <td>    {{ item.balancePaymentId }} </td>
+
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
       <div id="minerBalancePaymentsList" class="box background-secondary " style="overflow-x:auto; min-height:480px;">
-        <div class='subtitle'>Balance Payments</div>
+        <div class='subtitle'>Balance Payouts</div>
         <table class='table '>
 
           <thead>
@@ -151,50 +254,6 @@
         </table>
 
       </div>
-
-      <div id="minerBalanceTransfersList" class="box background-secondary " style="overflow-x:auto; min-height:480px;">
-        <div class='subtitle'>Balance Transfers</div>
-        <table class='table '>
-
-          <thead>
-            <tr >
-              <td> EthBlock </td>
-              <td> Status </td>
-                <td> Amount Sent </td>
-              <td> Tx Hash </td>
-              <td> Payment Id  </td>
-
-
-            </tr>
-          </thead>
-
-          <tbody>
-
-            <tr v-for="(item, index) in transactions.tx_list">
-
-              <td>    {{ item.block }} </td>
-              <td>    {{ item.status }} </td>
-
-              <td>    {{ item.tokenAmountFormatted  }} </td>
-
-              <td>
-                    <a v-bind:href='item.etherscanTxURL' >
-                      <p>  {{ item.txHash }}  </p>
-                    </a>
-              </td>
-
-
-
-              <td>    {{ item.balancePaymentId }} </td>
-
-            </tr>
-
-          </tbody>
-
-        </table>
-
-      </div>
-
 
 
 
@@ -225,6 +284,9 @@
 
       <%= require('html-loader!./assets/html/footer.html') %>
 
+        <h4>If you are mining MVI's AMD miner, make sure that your config file has MinutesPerShare=Pool:</h4>
+        <pre>[0xBitcoin]
+        MinutesPerShare=Pool</pre>
 
   </body>
 </html>
