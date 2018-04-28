@@ -69,7 +69,7 @@ export default class ProfileRenderer {
 
 
      data.address = minerAddress;
-     data.etherscanURL = 'https://www.etherchain.org/account/' + minerAddress.toString()+ '#history';
+     data.etherscanURL = 'https://etherscan.io/token/0xb6ed7644c69416d67b522e20bc294a9a9b405b31?a=' + minerAddress.toString();
 
      data.tokensAwardedFormatted = self.formatTokenQuantity( data.tokensAwarded  );
      data.tokenBalanceFormatted = self.formatTokenQuantity( data.tokenBalance );
