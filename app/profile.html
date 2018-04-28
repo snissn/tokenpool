@@ -53,7 +53,7 @@
   <div class="col-sm-3">
     <div class="card">
       <div class="card-body text-center">
-        <h2 class="card-title">Hashrate<br />&nbsp;</h2>
+        <h2 class="card-title">Effective Poolside Hashrate</h2>
         <h4 class="card-text btn btn-primary" style='font-size:24px' v-cloak>
         <img style="height:30px; margin-bottom:5px;" src="/app/assets/images/0xbitcoin.png"/  class="xbtc">
         {{  miner.minerData.hashRateFormatted }}
@@ -65,10 +65,10 @@
   <div class="col-sm-3">
     <div class="card">
       <div class="card-body text-center">
-        <h2 class="card-title">Total 0xBitcoin Paid Out</h2>
+        <h2 class="card-title">Accumulated Shares This Block</h2>
         <h4 class="card-text btn btn-primary" style='font-size:24px' v-cloak>
         <img style="height:30px; margin-bottom:5px;" src="/app/assets/images/0xbitcoin.png"/  class="xbtc">
-        {{ miner.minerData.tokensAwardedFormatted }}
+        {{ miner.minerData.shareCredits / 6144 }} 
         <img style="height:30px; margin-bottom:5px;" src="/app/assets/images/0xbitcoin.png"/  class="xbtc">
         </h4>
       </div>
@@ -89,10 +89,10 @@
   <div class="col-sm-3">
     <div class="card">
       <div class="card-body text-center">
-        <h2 class="card-title">Accumulated Shares</h2>
+        <h2 class="card-title">Total 0xBitcoin Paid Out</h2>
         <h4 class="card-text btn btn-primary" style='font-size:24px' v-cloak>
         <img style="height:30px; margin-bottom:5px;" src="/app/assets/images/0xbitcoin.png"/  class="xbtc">
-        {{ miner.minerData.shareCredits }} 
+        {{ miner.minerData.tokensAwardedFormatted }}
         <img style="height:30px; margin-bottom:5px;" src="/app/assets/images/0xbitcoin.png"/  class="xbtc">
         </h4>
       </div>
