@@ -1,6 +1,7 @@
 const $ = require('jquery');
 import Vue from 'vue';
 var moment = require('moment');
+var Chart = require('chart.js');
 
 var io = require('socket.io-client');
 var renderUtils = require('./render-utils')
@@ -135,6 +136,34 @@ export default class ProfileRenderer {
 
     });
 
+    const createChart = (elementId, labels, data, label) => {
+	    const context = document.getElementById(elementId);
+	    const submittedCanvas = new Chart(context, {
+		    type: 'line',
+		    data: {
+			labels: labels,
+			datasets: [{
+			    label: label,
+			    data: data,
+			    borderColor: "rgb(75, 192, 192)",
+			    lineTension: 0.1,
+			    fill: false
+			}]
+		    },
+		    options: {
+			animation: {
+			    duration: 0,
+			},
+			scales: {
+			    yAxes: [{
+				ticks: {
+				    beginAtZero:true
+				}
+			    }]
+			}
+		    }
+		});
+    }
 
 
     jumbotron = new Vue({
@@ -171,7 +200,12 @@ export default class ProfileRenderer {
               shares: {
                 share_list: []
               }
-            }
+            },
+            updated() {
+                const labels = this.shares.share_list.map(share => share.timeFormatted).reverse();
+                const data = this.shares.share_list.map(share => share.difficulty).reverse();
+                createChart("submittedCanvas", labels, data, "Difficulty");
+            },
           })
 
           minerInvalidSharesList = new Vue({
@@ -179,8 +213,13 @@ export default class ProfileRenderer {
               data: {
                 shares: {
                   share_list: []
-                }
-              }
+                },
+              },
+              updated() {
+                    const labels = this.shares.share_list.map(share => share.timeFormatted).reverse();
+                    const data = this.shares.share_list.map(share => share.difficulty).reverse();
+                    createChart("invalidCanvas", labels, data, "Difficulty");
+                },
             })
 
         this.socket.emit('getMinerDetails',{address: minerAddress});

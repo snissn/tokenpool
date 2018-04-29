@@ -8,7 +8,7 @@
 
   </head>
   <body>
-
+    </script>
         <%= require('html-loader!./assets/html/navbar.html') %>
 
 
@@ -55,7 +55,11 @@
     <div class="card">
       <div class="card-body text-center">
         <h2 class="card-title">Accumulated Shares This Block</h2>
+<<<<<<< HEAD
         <h4 class="card-text btn bitcoin-color" style='font-size:24px' v-cloak>
+=======
+        <h4 class="card-text btn " style='font-size:24px' v-cloak>
+>>>>>>> f40f7c6be7407044ee833060b9bc3f32d2253efe
         {{ miner.minerData.shareCredits / 6144 }} 
         </h4>
       </div>
@@ -65,7 +69,11 @@
     <div class="card">
       <div class="card-body text-center">
         <h2 class="card-title">Unpaid 0xBitcoin Balance</h2>
+<<<<<<< HEAD
         <h4 class="card-text btn bitcoin-color" style='font-size:24px' v-cloak> 
+=======
+        <h4 class="card-text btn " style='font-size:24px' v-cloak> 
+>>>>>>> f40f7c6be7407044ee833060b9bc3f32d2253efe
         {{  miner.minerData.tokenBalanceFormatted }}  / 15.00 
         </h4>
       </div>
@@ -75,7 +83,11 @@
     <div class="card">
       <div class="card-body text-center">
         <h2 class="card-title">Total 0xBitcoin Paid Out</h2>
+<<<<<<< HEAD
         <h4 class="card-text btn bitcoin-color" style='font-size:24px' v-cloak>
+=======
+        <h4 class="card-text btn " style='font-size:24px' v-cloak>
+>>>>>>> f40f7c6be7407044ee833060b9bc3f32d2253efe
         {{ miner.minerData.tokensAwardedFormatted }}
         </h4>
       </div>
@@ -119,6 +131,10 @@
 <div class="tab-content">
    <div id="minerSubmittedSharesList" class="tab-pane active box background-secondary " style="overflow-x:auto; min-height:480px;">
       <div class='subtitle'>Submitted Shares</div>
+<<<<<<< HEAD
+=======
+      <canvas id="submittedCanvas"></canvas>
+>>>>>>> f40f7c6be7407044ee833060b9bc3f32d2253efe
       <table class='table '>
          <thead>
             <tr >
@@ -142,6 +158,10 @@
    </div>
    <div id="minerInvalidSharesList" class="tab-pane box background-secondary " style="overflow-x:auto; min-height:480px;">
       <div class='subtitle'>Invalid Shares</div>
+<<<<<<< HEAD
+=======
+      <canvas id="invalidCanvas"></canvas>
+>>>>>>> f40f7c6be7407044ee833060b9bc3f32d2253efe
       <table class='table '>
          <thead>
             <tr >
@@ -177,7 +197,11 @@
                <td>    {{ item.block }} </td>
                <td>    {{ item.tokenAmountFormatted  }} </td>
                <td>
+<<<<<<< HEAD
                   <a target=_blank v-bind:href='item.etherscanTxURL' >
+=======
+                  <a v-bind:href='item.etherscanTxURL' >
+>>>>>>> f40f7c6be7407044ee833060b9bc3f32d2253efe
                      <p>  {{ item.txHash }}  </p>
                   </a>
                </td>
