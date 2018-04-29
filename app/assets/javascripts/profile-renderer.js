@@ -33,7 +33,7 @@ export default class ProfileRenderer {
       self.update();
 
 
-    },1*1000);
+    },15*1000);
 
 
       this.initSockets();
