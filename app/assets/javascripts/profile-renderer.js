@@ -236,7 +236,7 @@ export default class ProfileRenderer {
   }
 
 ethBlockNumberToDateStr(eth_block) {
-  var block_data = new Date("Mon Apr 30 2018 8:00:23 GMT-0400 (EDT)");
+  var block_data = new Date("Mon Apr 30 2018 7:00:23 GMT-0400 (EDT)");
   var latest_eth_block = 5532002;
   return new Date(Date.now() - ((latest_eth_block - eth_block)*15*1000)).toLocaleString()
 }
