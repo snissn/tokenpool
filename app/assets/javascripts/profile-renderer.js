@@ -88,6 +88,7 @@ export default class ProfileRenderer {
 
 
      data.map(item => item.previousTokenBalanceFormatted  = self.formatTokenQuantity(item.previousTokenBalance)    )
+     data.map(item => item.time  = self.ethBlockNumberToDateStr(item.block)    )
 
      console.log('got minerBalancePayments')
      console.dir(  data );
@@ -102,6 +103,7 @@ export default class ProfileRenderer {
 
       data.map(item => item.tokenAmountFormatted  = self.formatTokenQuantity(item.tokenAmount)    )
 
+     data.map(item => item.time  = self.ethBlockNumberToDateStr(item.block)    )
 
       console.log('got minerBalanceTransfers')
       console.dir(  data );
@@ -232,6 +234,12 @@ export default class ProfileRenderer {
     var quantity = (parseFloat(satoshis) / parseFloat(1e8)).toFixed(2)
     return quantity;
   }
+
+ethBlockNumberToDateStr(eth_block) {
+  var block_data = new Date("Mon Apr 30 2018 8:00:23 GMT-0400 (EDT)");
+  var latest_eth_block = 5532002;
+  return new Date(Date.now() - ((latest_eth_block - eth_block)*15*1000)).toLocaleString()
+}
 
 
 /*

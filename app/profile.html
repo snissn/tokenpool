@@ -176,6 +176,7 @@
          <thead>
             <tr >
                <td> EthBlock </td>
+               <td> Time </td>
                <td> Amount Sent </td>
                <td> Tx Hash </td>
                <td> Payment Id  </td>
@@ -184,6 +185,7 @@
          <tbody>
             <tr v-for="(item, index) in transactions.tx_list">
                <td>    {{ item.block }} </td>
+               <td>    {{ item.time }} </td>
                <td>    {{ item.tokenAmountFormatted  }} </td>
                <td>
                   <a v-bind:href='item.etherscanTxURL' >
@@ -201,6 +203,7 @@
          <thead>
             <tr >
                <td> EthBlock </td>
+               <td> Time </td>
                <td> Id  </td>
                <td> Balance Paid </td>
             </tr>
@@ -208,6 +211,7 @@
          <tbody>
             <tr v-for="(item, index) in transactions.tx_list">
                <td>    {{ item.block }} </td>
+               <td>    {{ item.time }} </td>
                <td>    {{ item.id }} </td>
                <td>    {{ item.previousTokenBalanceFormatted  }} </td>
             </tr>
