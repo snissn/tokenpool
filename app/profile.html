@@ -34,19 +34,10 @@
 
       <div id="jumbotron" class="box  background-secondary " style="overflow-x:auto; ">
         <div class='subtitle text-center'>
-            <a v-bind:href='miner.minerData.etherscanURL'>
+            <a target=_blank v-bind:href='miner.minerData.etherscanURL'>
             {{miner.minerData.address}}
             </a>
         </div>
-<style type="text/css">
-.xbtc{
-  height:30px;
-  margin-bottom:6px;
-}
-</style>
-
-
-
 
 
 <div class="row">
@@ -54,7 +45,7 @@
     <div class="card">
       <div class="card-body text-center">
         <h2 class="card-title">Effective Poolside Hashrate</h2>
-        <h4 class="card-text btn " style='font-size:24px' v-cloak>
+        <h4 class="card-text btn bitcoin-color" style='font-size:24px' v-cloak>
         {{  miner.minerData.hashRateFormatted }}
         </h4>
       </div>
@@ -64,7 +55,7 @@
     <div class="card">
       <div class="card-body text-center">
         <h2 class="card-title">Accumulated Shares This Block</h2>
-        <h4 class="card-text btn " style='font-size:24px' v-cloak>
+        <h4 class="card-text btn bitcoin-color" style='font-size:24px' v-cloak>
         {{ miner.minerData.shareCredits / 6144 }} 
         </h4>
       </div>
@@ -74,7 +65,7 @@
     <div class="card">
       <div class="card-body text-center">
         <h2 class="card-title">Unpaid 0xBitcoin Balance</h2>
-        <h4 class="card-text btn " style='font-size:24px' v-cloak> 
+        <h4 class="card-text btn bitcoin-color" style='font-size:24px' v-cloak> 
         {{  miner.minerData.tokenBalanceFormatted }}  / 15.00 
         </h4>
       </div>
@@ -84,7 +75,7 @@
     <div class="card">
       <div class="card-body text-center">
         <h2 class="card-title">Total 0xBitcoin Paid Out</h2>
-        <h4 class="card-text btn " style='font-size:24px' v-cloak>
+        <h4 class="card-text btn bitcoin-color" style='font-size:24px' v-cloak>
         {{ miner.minerData.tokensAwardedFormatted }}
         </h4>
       </div>
@@ -188,7 +179,7 @@
                <td>    {{ item.time }} </td>
                <td>    {{ item.tokenAmountFormatted  }} </td>
                <td>
-                  <a v-bind:href='item.etherscanTxURL' >
+                  <a target=_blank v-bind:href='item.etherscanTxURL' >
                      <p>  {{ item.txHash }}  </p>
                   </a>
                </td>
