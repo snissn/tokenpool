@@ -42,8 +42,10 @@
         <tr> <td> Transfer Gas Price: {{  pool.poolConfig.transferGasPriceWei }}  </td> </tr>
         <tr> <td> Transfer Minimum Balance:  {{  pool.poolConfig.minBalanceForTransfer / 1E8 }}</td></tr>
         <tr> <td> Minimum Share Difficulty:  {{  pool.poolConfig.minimumShareDifficulty }}</td></tr>
-        <tr> <td> Fee %:  {{ pool.poolConfig.poolTokenFee }} </td> </tr>
-     </tbody>
+        <tr> <td> Maximum Share Difficulty:  {{  pool.poolConfig.maximumShareDifficulty }}</td></tr>
+        <tr> <td> Pool Fee %:  {{ pool.poolConfig.poolTokenFee }} </td> </tr>
+        <tr> <td> Community Donations Fee %:  {{ pool.poolConfig.communityTokenFee }} </td> </tr>
+         </tbody>
       </table>
       </div>
 
@@ -58,6 +60,9 @@
         <tr> <td> Tx Pending:  {{ pool.poolStats.TxPending }}</td></tr>
         <tr> <td> Tx Mined:  {{ pool.poolStats.TxMined }}</td></tr>
         <tr> <td> Tx Succeeded:  {{ pool.poolStats.TxSuccess }}</td></tr>
+        <tr> <td> Pool Fee Tokens Collected:  {{ pool.poolStats.formattedTotalPoolFeeTokens }} </td> </tr>
+        <tr> <td> Community Donations Tokens Collected:  {{ pool.poolStats.formattedTotalCommunityFeeTokens }} </td> </tr>
+
       </tbody>
       </table>
       </div>
