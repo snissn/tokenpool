@@ -8,7 +8,7 @@
 
   </head>
   <body>
-
+    </script>
         <%= require('html-loader!./assets/html/navbar.html') %>
 
 
@@ -119,6 +119,7 @@
 <div class="tab-content">
    <div id="minerSubmittedSharesList" class="tab-pane active box background-secondary " style="overflow-x:auto; min-height:480px;">
       <div class='subtitle'>Submitted Shares</div>
+      <canvas id="submittedCanvas"></canvas>
       <table class='table '>
          <thead>
             <tr >
@@ -142,6 +143,7 @@
    </div>
    <div id="minerInvalidSharesList" class="tab-pane box background-secondary " style="overflow-x:auto; min-height:480px;">
       <div class='subtitle'>Invalid Shares</div>
+      <canvas id="invalidCanvas"></canvas>
       <table class='table '>
          <thead>
             <tr >
