@@ -1,41 +1,56 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
-    <title><%= htmlWebpackPlugin.options.title %></title>
 
-      <%= require('html-loader!./assets/html/head.html') %>
+<head>
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+  <title>
+    <%= htmlWebpackPlugin.options.title %>
+  </title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg"
+    crossorigin="anonymous">
+
+  <%= require('html-loader!./assets/html/head.html') %>
 
 
-  </head>
-  <body>
+</head>
 
-        <%= require('html-loader!./assets/html/navbar.html') %>
+<body>
+
+  <%= require('html-loader!./assets/html/navbar.html') %>
 
 
-<div class="page-container slate-theme " id="home">
+    <div class="page-container slate-theme " id="home">
 
       <section class="hero circuit-overlay">
         <div class="hero-body">
           <div class="container has-text-centered" id='jumbotron'>
+            <iframe src="https://discordapp.com/widget?id=412477591778492427&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" style="float: left;"></iframe> 
             <h1 class="title font-primary-title color-primary">
-                Mike.rs Mining Pool
+              Mike.rs Mining Pool
             </h1>
-             <a href="/account" target="_blank">
-               <div class='button-bubble button-white button'>View Account Shares</div>
-             </a>
+            <a href="/account" target="_blank">
+              <div class='button-bubble button-white button'>View Account Shares</div>
+            </a>
             <h2>🚀 Pool fees are 3%!🚀</h2>
 
-              <a v-bind:href='pool.poolData.etherscanMintingURL' >
-                <p>Minting: {{pool.poolData.mintingAddress}}</p>
-              </a>
+            <a v-bind:href='pool.poolData.etherscanMintingURL'>
+              <p>Minting: {{pool.poolData.mintingAddress}}</p>
+            </a>
 
-              <a v-bind:href='pool.poolData.etherscanPaymentURL' >
-                <p>Payments: {{pool.poolData.paymentAddress}}</p>
+            <a v-bind:href='pool.poolData.etherscanPaymentURL'>
+              <p>Payments: {{pool.poolData.paymentAddress}}</p>
+            </a>
+            <p>
+              <a href="http://github.com/snissn/tokenpool/" target=_blank>
+                <img src="https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png" width=50 />
               </a>
-            <p><a href="http://github.com/snissn/tokenpool/" target=_blank><img src="https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png" width=50 /></a></p>
-            <p><a href="http://github.com/snissn/tokenpool/" target=_blank> <div class='button-bubble button-white button'> This is a fully open source pool, read the source, build your own. </div></a></p>
-<p></p>
+            </p>
+            <p>
+              <a href="http://github.com/snissn/tokenpool/" target=_blank>
+                <div class='button-bubble button-white button'> This is a fully open source pool, read the source, build your own. </div>
+              </a>
+            </p>
+            <p></p>
 
             <h2 class="subtitle">
               Mine 0xBitcoin with AMD + NVIDIA + CPU Pool Mining
@@ -43,32 +58,43 @@
 
 
 
-              <div class="whitespace-sm"></div>
+            <div class="whitespace-sm"></div>
 
-              <div class="columns">
-              <div class= "column   is-half-desktop " style=" margin: 0 auto;">
+            <div class="columns">
+              <div class="column   is-half-desktop " style=" margin: 0 auto;">
 
-                    <canvas id="hashgraph"></canvas>
+                <canvas id="hashgraph"></canvas>
 
-               </div>
-             </div>
+              </div>
+            </div>
 
-             <div class="whitespace-sm"></div>
-      <p><a class='button' href="https://bitbucket.org/LieutenantTofu/cosmic-v3/downloads/">Download Windows Nvidia HashburnerV3 Miner (Opensource+Newest+Fastest Release)</a></p>
-      <p><a class='button' href="https://github.com/mining-visualizer/MVis-tokenminer/releases">Download AMD MVI Miner</a></p>
-          <p><a class='button' href="http://mike.rs/0xbitcoin-windows-gpu-miner.9.4.Azlehria.zip">Download Open source Mikers/Azlehria miner - Windows + Nvidia (Slower, Older but stable)</a></p>
-      <!--<p>(Opensource+Newest+Fastest Release) <a href="https://bitbucket.org/LieutenantTofu/cosmic-v3/downloads/" target=_blank>Link to download + source: https://bitbucket.org/LieutenantTofu/cosmic-v3/downloads/</a> </p>
+            <div class="whitespace-sm"></div>
+            <p>
+              <a class='button' href="https://bitbucket.org/LieutenantTofu/cosmic-v3/downloads/">Download Windows Nvidia HashburnerV3 Miner (Opensource+Newest+Fastest Release)</a>
+            </p>
+            <p>
+              <a class='button' href="https://github.com/mining-visualizer/MVis-tokenminer/releases">Download AMD MVI Miner</a>
+            </p>
+            <p>
+              <a class='button' href="http://mike.rs/0xbitcoin-windows-gpu-miner.9.4.Azlehria.zip">Download Open source Mikers/Azlehria miner - Windows + Nvidia (Slower, Older but stable)</a>
+            </p>
+            <!--<p>(Opensource+Newest+Fastest Release) <a href="https://bitbucket.org/LieutenantTofu/cosmic-v3/downloads/" target=_blank>Link to download + source: https://bitbucket.org/LieutenantTofu/cosmic-v3/downloads/</a> </p>
 
       <p>  v.9.4 Azlehria More speed + stability bugfixes.<a target=_blank href="https://github.com/snissn/0xbitcoin-gpuminer/tree/reduction">Github</a></p>
       -->
-            <p><a class='button' href="http://mike.rs/0xbitcoin-linux-2018-04-04.zip">Download Open source Linux Mikers/Azlehria miner</a></p>
-             <br />
-             <a href="https://docs.google.com/spreadsheets/d/1lpQufwMHeozyz2X5Xq9MhjLr_hVTkQfzpzXcdFQDRGg/edit#gid=0" target="_blank">
-               <div class='button-bubble button-white button'>Cat of Profits Mining Profitability Calculator</div>
-             </a>
-             <br />
-             <a href="https://docs.google.com/spreadsheets/d/1lpQufwMHeozyz2X5Xq9MhjLr_hVTkQfzpzXcdFQDRGg/edit#gid=0" target=_blank ><img src='https://media.discordapp.net/attachments/429103257026297866/434971809432207360/CatOfProfits.png?width=842&height=633' width=400 /></a>
-      <!--
+            <p>
+              <a class='button' href="http://mike.rs/0xbitcoin-linux-2018-04-04.zip">Download Open source Linux Mikers/Azlehria miner</a>
+            </p>
+            <br />
+            <a href="https://docs.google.com/spreadsheets/d/1lpQufwMHeozyz2X5Xq9MhjLr_hVTkQfzpzXcdFQDRGg/edit#gid=0" target="_blank">
+              <div class='button-bubble button-white button'>Cat of Profits Mining Profitability Calculator</div>
+            </a>
+            <br />
+            <a href="https://docs.google.com/spreadsheets/d/1lpQufwMHeozyz2X5Xq9MhjLr_hVTkQfzpzXcdFQDRGg/edit#gid=0" target=_blank>
+              <img src='https://media.discordapp.net/attachments/429103257026297866/434971809432207360/CatOfProfits.png?width=842&height=633'
+                width=400 />
+            </a>
+            <!--
       <p> The first time you download the miner you need to configure your ethereum account that you are mining from. You can either have the miner create a new ethereum public key + private key pair for you or input your own public key. If you do the second, you don't need to give the miner your private key.</p>
       <pre style="text-align:left">      account new
           or
@@ -90,7 +116,7 @@
  </p>
  -->
 
-             <div class="whitespace-sm"></div>
+            <div class="whitespace-sm"></div>
 
 
           </div>
@@ -99,49 +125,68 @@
 
 
 
-
-      <div id="guide" class="box background-secondary has-text-centered ">
+      <ul class="nav nav-tabs" id="tabPanel" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" href="#guide">Start Mining</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#solutiontxlist">Recent Solutions</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#transfertxlist">Recent Transfers</a>
+        </li>
+      </ul>
+      <div class="tab-content">
+      <div id="guide" class="box background-secondary has-text-centered tab-pane active box background-secondary">
         <div class='title'> Start Mining 0xBitcoin Guide</div>
 
 
         <div class="toggle-mining-instructions acts-as-link color-fun-secondary button">Instructions</div>
 
         <div class="mining-instructions-container">
-            <div class="columns">
-            <div class= "column background-primary color-orange is-half-desktop " style=" margin: 0 auto;">
-<p>
-        <a href="http://mike.rs/0xbitcoin-windows-gpu-miner.9.4.Azlehria.zip" target="_blank">
-          <div class='button-bubble button-primary'>Download the Token Miner</div>
-        </a>
-        </p>
+          <div class="columns">
+            <div class="column background-primary color-orange is-half-desktop " style=" margin: 0 auto;">
+              <p>
+                <a href="http://mike.rs/0xbitcoin-windows-gpu-miner.9.4.Azlehria.zip" target="_blank">
+                  <div class='button-bubble button-primary'>Download the Token Miner</div>
+                </a>
+              </p>
               <hr>
-              <p>Connect to this pool with <pre>pool select http://mike.rs:8586</pre></p>
+              <p>Connect to this pool with
+                <pre>pool select http://mike.rs:8586</pre>
+              </p>
               <hr>
               <p>Start mining with 'pool mine cuda'</p>
-             </div>
-           </div>
-     </div>
-     <p>Cuda Mining Guide</p>
-     <iframe width="560" height="315" src="https://www.youtube.com/embed/jNtNw-YsqQU" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-     <p>Multi-Card Mining Guide</p>
-     <iframe width="560" height="315" src="https://www.youtube.com/embed/ALh6DaRPob8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-     <p>AMD Mining Guide</p>
-     <iframe width="560" height="315" src="https://www.youtube.com/embed/W-gLERwzKno" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-            <br />
-             <a href="https://docs.google.com/spreadsheets/d/1lpQufwMHeozyz2X5Xq9MhjLr_hVTkQfzpzXcdFQDRGg/edit#gid=0" target="_blank">
-               <div class='button-bubble button-white button'>Cat of Profits Mining Profitability Calculator</div>
-             </a>
-             <br />
-             <a href="https://docs.google.com/spreadsheets/d/1lpQufwMHeozyz2X5Xq9MhjLr_hVTkQfzpzXcdFQDRGg/edit#gid=0" target=_blank ><img src='https://media.discordapp.net/attachments/429103257026297866/434971809432207360/CatOfProfits.png?width=842&height=633' width=400 /></a>
+            </div>
+          </div>
+        </div>
+        <p>Cuda Mining Guide</p>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/jNtNw-YsqQU" frameborder="0" allow="autoplay; encrypted-media"
+          allowfullscreen></iframe>
+        <p>Multi-Card Mining Guide</p>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/ALh6DaRPob8" frameborder="0" allow="autoplay; encrypted-media"
+          allowfullscreen></iframe>
+        <p>AMD Mining Guide</p>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/W-gLERwzKno" frameborder="0" allow="autoplay; encrypted-media"
+          allowfullscreen></iframe>
+        <br />
+        <a href="https://docs.google.com/spreadsheets/d/1lpQufwMHeozyz2X5Xq9MhjLr_hVTkQfzpzXcdFQDRGg/edit#gid=0" target="_blank">
+          <div class='button-bubble button-white button'>Cat of Profits Mining Profitability Calculator</div>
+        </a>
+        <br />
+        <a href="https://docs.google.com/spreadsheets/d/1lpQufwMHeozyz2X5Xq9MhjLr_hVTkQfzpzXcdFQDRGg/edit#gid=0" target=_blank>
+          <img src='https://media.discordapp.net/attachments/429103257026297866/434971809432207360/CatOfProfits.png?width=842&height=633'
+            width=400 />
+        </a>
 
       </div>
 
-      <div id="solutiontxlist" class="box background-secondary transaction-list " style="overflow-x:auto; min-height:480px;">
+      <div id="solutiontxlist" class="box background-secondary transaction-list tab-pane active box background-secondary" style="overflow-x:auto; min-height:480px;">
         <div class='subtitle'>Recent Solutions</div>
         <table class='table zeroauto'>
 
           <thead>
-            <tr >
+            <tr>
               <td> Block </td>
               <td> TxHash </td>
               <td> Status </td>
@@ -150,16 +195,16 @@
 
           <tbody>
 
-            <tr v-for="(item, index) in transactions.tx_list"  v-bind:class="item.htmlClass">
-              <td>  {{ item.block  }} </td>
+            <tr v-for="(item, index) in transactions.tx_list" v-bind:class="item.htmlClass">
+              <td> {{ item.block }} </td>
               <td>
 
-                <a v-bind:href='item.txURL' >
-                 {{ item.txHash  }}
-               </a>
-               </td>
+                <a v-bind:href='item.txURL'>
+                  {{ item.txHash }}
+                </a>
+              </td>
 
-              <td class="tx-status-cell">  {{ item.formattedStatus}} </td>
+              <td class="tx-status-cell"> {{ item.formattedStatus}} </td>
             </tr>
 
           </tbody>
@@ -167,39 +212,42 @@
 
       </div>
 
-      <div id="transfertxlist" class="box background-secondary transaction-list  " style="overflow-x:auto; min-height:480px;">
+      <div id="transfertxlist" class="box background-secondary transaction-list tab-pane active box background-secondary" style="overflow-x:auto; min-height:480px;">
         <div class='subtitle'>Recent Transfers</div>
         <table class='table zeroauto'>
 
           <thead>
-            <tr >
+            <tr>
               <td> Block </td>
               <td> TxHash </td>
-              <td > Status </td>
+              <td> Status </td>
             </tr>
           </thead>
 
           <tbody>
 
-            <tr v-for="(item, index) in transactions.tx_list"  v-bind:class="item.htmlClass">
-              <td>  {{ item.block  }} </td>
+            <tr v-for="(item, index) in transactions.tx_list" v-bind:class="item.htmlClass">
+              <td> {{ item.block }} </td>
               <td>
-                  <a v-bind:href='item.txURL' >
-                 {{ item.txHash  }}
-               </a>
-               </td>
+                <a v-bind:href='item.txURL'>
+                  {{ item.txHash }}
+                </a>
+              </td>
 
-              <td class="tx-status-cell">  {{ item.formattedStatus}} </td>
+              <td class="tx-status-cell"> {{ item.formattedStatus}} </td>
             </tr>
 
           </tbody>
         </table>
 
-<h4>Notes</h4>
-<p> Hashrate estimate reliability is being worked on. Share #s are reliable </p>
-<p> Also working on adding graphs to the account page </p>
-<p>Payouts from db reset here: <a href="https://docs.google.com/spreadsheets/d/10gpAcym3o4ywAUsy1YAaAehTA0DgymLZxYVWGbC5h9Q/edit#gid=187626846" target=_blank>https://docs.google.com/spreadsheets/d/10gpAcym3o4ywAUsy1YAaAehTA0DgymLZxYVWGbC5h9Q/edit#gid=187626846</a>  </p>
-<!--<p>Data in the database was reset Saturday evening 4/15/2018 because of a brief and now resolved issue with the geth light client causing the database to be in an inconsistent state. The pool has since upgraded to a full geth client. Unsent payouts under the payout threshold of 15 0xBTC will be sent out manually from a database snapshot in the next week (or two). This should not happen again because of the switch to a full geth node. Sorry about this!</p>-->
+        <h4>Notes</h4>
+        <p> Hashrate estimate reliability is being worked on. Share #s are reliable </p>
+        <p> Also working on adding graphs to the account page </p>
+        <p>Payouts from db reset here:
+          <a href="https://docs.google.com/spreadsheets/d/10gpAcym3o4ywAUsy1YAaAehTA0DgymLZxYVWGbC5h9Q/edit#gid=187626846" target=_blank>https://docs.google.com/spreadsheets/d/10gpAcym3o4ywAUsy1YAaAehTA0DgymLZxYVWGbC5h9Q/edit#gid=187626846</a>
+        </p>
+        <!--<p>Data in the database was reset Saturday evening 4/15/2018 because of a brief and now resolved issue with the geth light client causing the database to be in an inconsistent state. The pool has since upgraded to a full geth client. Unsent payouts under the payout threshold of 15 0xBTC will be sent out manually from a database snapshot in the next week (or two). This should not happen again because of the switch to a full geth node. Sorry about this!</p>-->
+      </div>
       </div>
 
 
@@ -223,10 +271,15 @@
         </div>
 
         <div class="">
-          <P><img src="https://images-ext-1.discordapp.net/external/6FXDqa-sPWh7keBvNiTTgztjltUhuL0wPNX2tcMj_BM/https/i.imgur.com/SS7jqLt.png" /></p>
+          <P>
+            <img src="https://images-ext-1.discordapp.net/external/6FXDqa-sPWh7keBvNiTTgztjltUhuL0wPNX2tcMj_BM/https/i.imgur.com/SS7jqLt.png"
+            />
+          </p>
 
 
-          <p> Read more on <a href="https://reddit.com/r/tokenmining" target="_blank"> Reddit </a> </p>
+          <p> Read more on
+            <a href="https://reddit.com/r/tokenmining" target="_blank"> Reddit </a>
+          </p>
 
 
 
@@ -234,11 +287,12 @@
       </div>
 
 
-  </div>
+    </div>
 
 
-      <%= require('html-loader!./assets/html/footer.html') %>
+    <%= require('html-loader!./assets/html/footer.html') %>
 
 
-  </body>
+</body>
+
 </html>

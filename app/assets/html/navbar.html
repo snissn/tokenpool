@@ -1,54 +1,59 @@
 <style>
-.page-container{
-  max-width: 1260px;
-  margin: 0 auto;
-}
+  .page-container {
+    max-width: 1260px;
+    margin: 0 auto;
+  }
+  .navIcon {
+    margin-right: 10px;
+  }
 </style>
-<nav id="navbar" class="navbar slate-theme-dark" role="navigation" aria-label="main navigation">
-       <div class="navbar-brand" style="padding-left:10px;">
-         <a class="navbar-item" href="/">
-           <img :src="brandImageUrl" height="28" width="28" />
-         </a>
+<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/">
+      <img :src="brandImageUrl" />
+    </a>
+  </div>
+  </div>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-
-
-       </div>
-
-<div id="NavMenu" class="navbar-menu">
-	<div class="navbar-start">
-		<a href="/account" class="navbar-item">
-		&nbsp;View Account Shares&nbsp;</a>
-		 <a href="/overview" class="navbar-item">
-		&nbsp;Pool Info&nbsp;</a>
-             <a href="https://discord.gg/G7twxAg" class='navbar-item' target="_blank">
-               Mike.rs Pool Official Discord
-             </a>
-             <a href="https://www.teepublic.com/user/0xbtcat" class='navbar-item' target="_blank">
-               0xBTC Merch
-             </a>
-             <a href="https://docs.google.com/spreadsheets/d/1lpQufwMHeozyz2X5Xq9MhjLr_hVTkQfzpzXcdFQDRGg/edit#gid=0" class='navbar-item' target="_blank"><img src="https://media.discordapp.net/attachments/429103257026297866/434971809432207360/CatOfProfits.png" width=30 />
-               Mining Calculator
-             </a>
-             <a href="https://0x1d00ffff.github.io/0xBTC-Stats/?page=miningcalculator&#" class='navbar-item' target="_blank">
-               Other Mining Calculator
-             </a>
-             <a href="https://0x1d00ffff.github.io/0xBTC-Stats/?page=graphs&#reward-time" class='navbar-item' target="_blank">
-               0xBitcoin Network Hashrate Graphs
-             </a>
-             <a href="https://0x1d00ffff.github.io/0xBTC-Stats/?page=stats&#blocks" class='navbar-item' target="_blank">
-               0xBitcoin Network Blocks
-             </a>
-             <a href="http://gpu.pizza/#blocks" class='navbar-item' target="_blank">
-               0xBitcoin Network Blocks Pizza
-             </a>
-<!--
-		 <a href="/profile" class="navbar-item">
-		&nbsp;Miner Info&nbsp;</a>
-		 <a href="/gettingstarted" class="navbar-item">
-		&nbsp;Getting Started</a>
--->
-	</div>
-</div>
-
-       </div>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/account"><i class="fas fa-dollar-sign navIcon"></i>View Account Shares</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/overview"><i class="fas fa-users navIcon"></i>Pool Info</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="https://discord.gg/G7twxAg" target="_blank"><i class="fab fa-discord navIcon"></i>Mike.rs Pool Official Discord</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="https://www.teepublic.com/user/0xbtcat"><i class="fas fa-shopping-cart navIcon"></i>0xBTC Merch</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="https://docs.google.com/spreadsheets/d/1lpQufwMHeozyz2X5Xq9MhjLr_hVTkQfzpzXcdFQDRGg/edit#gid=0"
+          target="_blank"><i class="fas fa-calculator navIcon"></i>Mining Calculator</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="https://0x1d00ffff.github.io/0xBTC-Stats/?page=graphs&#reward-time" class='navbar-item' target="_blank">
+          <i class="fas fa-chart-line navIcon"></i>0xBitcoin Network Hashrate Graphs
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="https://0x1d00ffff.github.io/0xBTC-Stats/?page=stats&#blocks" class='navbar-item' target="_blank">
+          <i class="fas fa-th navIcon"></i>0xBitcoin Network Blocks
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="http://gpu.pizza/#blocks" class='navbar-item' target="_blank">
+          <i class="fas fa-chart-pie navIcon"></i>0xBitcoin Network Blocks Pizza
+        </a>
+      </li>
+    </ul>
+  </div>
 </nav>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
