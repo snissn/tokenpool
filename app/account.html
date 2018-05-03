@@ -8,7 +8,12 @@
   </title>
 
   <%= require('html-loader!./assets/html/head.html') %>
-
+  <style>
+    .tableCell {
+      padding: 20px 12px 20px 12px !important;
+      font-size: 1.25rem;
+    }
+  </style>
 </head>
 
 <body>
@@ -56,40 +61,30 @@
           <input type="text" class="form-control" placeholder="Address" v-model="filter" aria-label="Address" aria-describedby="basic-addon1">
         </div>
         <div class='subtitle'>Miners</div>
-        <table class='table zeroauto'>
-
+        <table class='table table-striped'>
           <thead>
             <tr>
-              <td> Miner # </td>
-
-              <td> Eth Address </td>
-              <td> Hash Rate </td>
-              <td> Share % </td>
-              <td> Token Balance </td>
-              <td> Tokens Earned </td>
+              <th scope="col">Miner #</th>
+              <th scope="col">Eth Address</th>
+              <th scope="col">Hash Rate</th>
+              <th scope="col">Share %</th>
+              <th scope="col">Token Balance</th>
+              <th scope="col">Tokens Earned</th>
             </tr>
           </thead>
-
           <tbody>
-
             <tr v-for="(item, index) in filteredList">
-              <td> Miner {{ index + 1 }} </td>
-
-
-              <td>
+              <th class="tableCell" scope="row">{{ index + 1 }}</td>
+              <td class="tableCell">
                 <a v-bind:href='item.profileURL'>
-                  <p> {{ item.minerAddress }} </p>
+                  <span>{{ item.minerAddress }}</span>
                 </a>
               </td>
-
-              <td> {{ item.minerData.hashRateFormatted }} </td>
-
-              <td> {{ item.minerData.sharesPercent}} </td>
-              <td> {{ item.minerData.tokenBalanceFormatted }} </td>
-              <td> {{ item.minerData.tokenRewardsFormatted }} </td>
+              <td class="tableCell">{{ item.minerData.hashRateFormatted }}</td>
+              <td class="tableCell">{{ item.minerData.sharesPercent}}</td>
+              <td class="tableCell">{{ item.minerData.tokenBalanceFormatted }}</td>
+              <td class="tableCell">{{ item.minerData.tokenRewardsFormatted }}</td>
             </tr>
-
-
           </tbody>
         </table>
 
