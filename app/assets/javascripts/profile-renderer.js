@@ -29,12 +29,11 @@ export default class ProfileRenderer {
     var self = this;
 
     setInterval( function(){
-      console.log("updating profile data")
 
       self.update();
 
 
-    },30*1000);
+    },15*1000);
 
 
       this.initSockets();

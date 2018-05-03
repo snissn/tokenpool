@@ -67,7 +67,7 @@
       <div class="card-body text-center">
         <h2 class="card-title">Accumulated Shares This Block</h2>
         <h4 class="card-text btn bitcoin-color" style='font-size:24px' v-cloak>
-        {{ miner.minerData.shareCredits / 6144 }} 
+        {{ miner.minerData.shareCredits / 65536 }} 
         </h4>
       </div>
     </div>
@@ -77,7 +77,7 @@
       <div class="card-body text-center">
         <h2 class="card-title">Unpaid 0xBitcoin Balance</h2>
         <h4 class="card-text btn bitcoin-color" style='font-size:24px' v-cloak> 
-        {{  miner.minerData.tokenBalanceFormatted }}  / 15.00 
+        {{  miner.minerData.tokenBalanceFormatted }}  / 45.00 
         </h4>
       </div>
     </div>

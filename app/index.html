@@ -28,10 +28,9 @@
             <h1 class="title font-primary-title color-primary">
               Mike.rs Mining Pool
             </h1>
-            <a href="/account" target="_blank">
-              <div class='button-bubble button-white button'>View Account Shares</div>
-            </a>
-            <h2>🚀 Pool fees are 3%!🚀</h2>
+             <a href="/account" target="_blank">
+               <div class='button-bubble button-white button'>View Account Shares</div>
+             </a>
 
             <a v-bind:href='pool.poolData.etherscanMintingURL'>
               <p>Minting: {{pool.poolData.mintingAddress}}</p>
@@ -82,19 +81,68 @@
 
       <p>  v.9.4 Azlehria More speed + stability bugfixes.<a target=_blank href="https://github.com/snissn/0xbitcoin-gpuminer/tree/reduction">Github</a></p>
       -->
-            <p>
-              <a class='button' href="http://mike.rs/0xbitcoin-linux-2018-04-04.zip">Download Open source Linux Mikers/Azlehria miner</a>
-            </p>
-            <br />
-            <a href="https://docs.google.com/spreadsheets/d/1lpQufwMHeozyz2X5Xq9MhjLr_hVTkQfzpzXcdFQDRGg/edit#gid=0" target="_blank">
-              <div class='button-bubble button-white button'>Cat of Profits Mining Profitability Calculator</div>
-            </a>
-            <br />
-            <a href="https://docs.google.com/spreadsheets/d/1lpQufwMHeozyz2X5Xq9MhjLr_hVTkQfzpzXcdFQDRGg/edit#gid=0" target=_blank>
-              <img src='https://media.discordapp.net/attachments/429103257026297866/434971809432207360/CatOfProfits.png?width=842&height=633'
-                width=400 />
-            </a>
-            <!--
+            <p><a class='button' href="http://mike.rs/0xbitcoin-linux-2018-04-04.zip">Download Open source Linux Mikers/Azlehria miner</a></p>
+             <br />
+            <pre style="text-align:left;">
+            Cosmic Miner Mining Instructions:
+
+            account select <enter eth address>
+            pool select http://mike.rs:8586
+            pool mine cuda
+
+            Azlehria Gaiden Mining Instructions:
+            {
+              "address" : "0xYOU",
+              "pool" : "http://mike.rs:8586",
+              "cuda" : [
+                {
+                  "device": 0,
+                  "enabled": true,
+                  "intensity": 27
+                },
+                {
+                  "device": 1,
+                  "enabled": true,
+                  "intensity": 27
+                },
+                {
+                  "device": 2,
+                  "enabled": true,
+                  "intensity": 27
+                },
+                {
+                  "device": 3,
+                  "enabled": true,
+                  "intensity": 27
+                },
+                {
+                  "device": 4,
+                  "enabled": true,
+                  "intensity": 27
+                },
+                {
+                  "device": 5,
+                  "enabled": true,
+                  "intensity": 27
+                },
+                {
+                  "device": 6,
+                  "enabled": true,
+                  "intensity": 27
+                }
+              ]
+            }
+
+            </pre>
+<pre style="text-align:left;">Pool difficulty was increased to 64K to reduce server load. If you have an overall low hash rate across your miners, consider switching to the 8K Diff pool:
+pool select http://b.mike.rs:8586
+</pre>
+             <a href="https://docs.google.com/spreadsheets/d/1lpQufwMHeozyz2X5Xq9MhjLr_hVTkQfzpzXcdFQDRGg/edit#gid=0" target="_blank">
+               <div class='button-bubble button-white button'>Cat of Profits Mining Profitability Calculator</div>
+             </a>
+             <br />
+             <a href="https://docs.google.com/spreadsheets/d/1lpQufwMHeozyz2X5Xq9MhjLr_hVTkQfzpzXcdFQDRGg/edit#gid=0" target=_blank ><img src='https://media.discordapp.net/attachments/429103257026297866/434971809432207360/CatOfProfits.png?width=842&height=633' width=400 /></a>
+      <!--
       <p> The first time you download the miner you need to configure your ethereum account that you are mining from. You can either have the miner create a new ethereum public key + private key pair for you or input your own public key. If you do the second, you don't need to give the miner your private key.</p>
       <pre style="text-align:left">      account new
           or
@@ -102,10 +150,10 @@
       pool select http://mike.rs:8586
       pool mine cuda</pre>
 
-      <p>  All ports enforce the same difficulty of 6144 for simplicity and fairness. Please just use port 8586 as other ports are redudnant.</p>
-      <p> All ports enforce the same difficulty of 6144 for simplicity and fairness</p>
+      <p>  All ports enforce the same difficulty of 65536 for simplicity and fairness. Please just use port 8586 as other ports are redudnant.</p>
+      <p> All ports enforce the same difficulty of 65536 for simplicity and fairness</p>
       <table style="margin:0 auto;"><tr><th style="text-align:center">Port select command</th><th style="text-align:center">Difficulty</th><tr>
-      <tr> <td><pre> pool select http://mike.rs:8586</pre></td><td><pre>6144</pre></td></tr>
+      <tr> <td><pre> pool select http://mike.rs:8586</pre></td><td><pre>65536</pre></td></tr>
       </table>
       <p>Subsequent times mining you can just run mine.bat from explorer which will automatically use your public key and start mining. For mining from multiple cards you can use mine_many.ps1</p>
       <p>Tutorial on getting started: <a href="https://www.reddit.com/r/0xbitcoin/comments/849qyw/tutorial_mikers_nvidia_on_tmp/" target=_blank>https://www.reddit.com/r/0xbitcoin/comments/849qyw/tutorial_mikers_nvidia_on_tmp/</a></p>
