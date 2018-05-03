@@ -1,22 +1,25 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
-    <title><%= htmlWebpackPlugin.options.title %></title>
 
-    <%= require('html-loader!./assets/html/head.html') %>
+<head>
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+  <title>
+    <%= htmlWebpackPlugin.options.title %>
+  </title>
+  <%= require('html-loader!./assets/html/head.html') %>
 
-  </head>
-  <body>
-    </script>
-        <%= require('html-loader!./assets/html/navbar.html') %>
+</head>
+
+<body>
+  </script>
+  <%= require('html-loader!./assets/html/navbar.html') %>
 
 
-<div class="page-container slate-theme " id="profile">
+    <div class="page-container slate-theme " id="profile">
 
       <section class="hero">
         <div class="hero-body">
-          <div class="container has-text-centered"  >
+          <div class="container has-text-centered">
             <h1 class="title font-primary-title color-primary">
               Miner Profile
             </h1>
@@ -25,19 +28,27 @@
             </h2>
 
 
-             <div class="whitespace-sm"></div>
+            <div class="whitespace-sm"></div>
 
 
-        </div>
+          </div>
       </section>
 
 
       <div id="jumbotron" class="box  background-secondary " style="overflow-x:auto; ">
         <div class='subtitle text-center'>
-            <a target=_blank v-bind:href='miner.minerData.etherscanURL'>
+          <a target=_blank v-bind:href='miner.minerData.etherscanURL'>
             {{miner.minerData.address}}
-            </a>
+          </a>
         </div>
+        <style type="text/css">
+          .xbtc {
+            height: 30px;
+            margin-bottom: 6px;
+          }
+        </style>
+
+
 
 
 <div class="row">
@@ -99,7 +110,6 @@
 
 
       </div>
-
 
 
 <ul class="nav nav-tabs" id="tabPanel" role="tablist">
@@ -216,11 +226,11 @@
 
 
       <div id="about" class="box background-secondary has-text-centered">
-          <div class="whitespace-sm"></div>
+        <div class="whitespace-sm"></div>
 
         <div class='title'> Token Mining Pool </div>
 
-          <div class="whitespace-sm"></div>
+        <div class="whitespace-sm"></div>
 
         <div class='subtitle '> Mine Ethereum tokens distributed using Proof of Work </div>
 
@@ -230,14 +240,16 @@
         </div>
 
         <div class="">
-          <p> Read more on <a href="https://reddit.com/r/tokenmining" target="_blank"> Reddit </a> </p>
+          <p> Read more on
+            <a href="https://reddit.com/r/tokenmining" target="_blank"> Reddit </a>
+          </p>
 
 
         </div>
       </div>
 
 
-  </div>
+      </div>
 
 
       <%= require('html-loader!./assets/html/footer.html') %>
@@ -245,6 +257,7 @@
         <h4>If you are mining MVI's AMD miner, make sure that your config file has MinutesPerShare=Pool:</h4>
         <pre>[0xBitcoin]
         MinutesPerShare=Pool</pre>
+</body>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
