@@ -107,7 +107,7 @@ export default class AccountRenderer {
             return this.accounts.account_list;
           }
         }
-      }
+      },
     })
   }
 
