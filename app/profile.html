@@ -6,7 +6,6 @@
   <title>
     <%= htmlWebpackPlugin.options.title %>
   </title>
-
   <%= require('html-loader!./assets/html/head.html') %>
 
 </head>
@@ -38,7 +37,7 @@
 
       <div id="jumbotron" class="box  background-secondary " style="overflow-x:auto; ">
         <div class='subtitle text-center'>
-          <a v-bind:href='miner.minerData.etherscanURL'>
+          <a target=_blank v-bind:href='miner.minerData.etherscanURL'>
             {{miner.minerData.address}}
           </a>
         </div>
@@ -52,53 +51,52 @@
 
 
 
+<div class="row">
+  <div class="col-sm-3">
+    <div class="card">
+      <div class="card-body text-center">
+        <h2 class="card-title">Effective Poolside Hashrate</h2>
+        <h4 class="card-text btn bitcoin-color" style='font-size:24px' v-cloak>
+        {{  miner.minerData.hashRateFormatted }}
+        </h4>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3">
+    <div class="card">
+      <div class="card-body text-center">
+        <h2 class="card-title">Accumulated Shares This Block</h2>
+        <h4 class="card-text btn bitcoin-color" style='font-size:24px' v-cloak>
+        {{ miner.minerData.shareCredits / 65536 }} 
+        </h4>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3">
+    <div class="card">
+      <div class="card-body text-center">
+        <h2 class="card-title">Unpaid 0xBitcoin Balance</h2>
+        <h4 class="card-text btn bitcoin-color" style='font-size:24px' v-cloak> 
+        {{  miner.minerData.tokenBalanceFormatted }}  / 35.00 
+        </h4>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3">
+    <div class="card">
+      <div class="card-body text-center">
+        <h2 class="card-title">Total 0xBitcoin Paid Out</h2>
+        <h4 class="card-text btn bitcoin-color" style='font-size:24px' v-cloak>
+        {{ miner.minerData.tokensAwardedFormatted }}
+        </h4>
+      </div>
+    </div>
+  </div>
+</div>
 
-        <div class="row">
-          <div class="col-sm-3">
-            <div class="card">
-              <div class="card-body text-center">
-                <h2 class="card-title">Effective Poolside Hashrate</h2>
-                <h4 class="card-text btn " style='font-size:24px' v-cloak>
-                  {{ miner.minerData.hashRateFormatted }}
-                </h4>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-3">
-            <div class="card">
-              <div class="card-body text-center">
-                <h2 class="card-title">Accumulated Shares This Block</h2>
-                <h4 class="card-text btn " style='font-size:24px' v-cloak>
-                  {{ miner.minerData.shareCredits / 6144 }}
-                </h4>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-3">
-            <div class="card">
-              <div class="card-body text-center">
-                <h2 class="card-title">Unpaid 0xBitcoin Balance</h2>
-                <h4 class="card-text btn " style='font-size:24px' v-cloak>
-                  {{ miner.minerData.tokenBalanceFormatted }} / 15.00
-                </h4>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-3">
-            <div class="card">
-              <div class="card-body text-center">
-                <h2 class="card-title">Total 0xBitcoin Paid Out</h2>
-                <h4 class="card-text btn " style='font-size:24px' v-cloak>
-                  {{ miner.minerData.tokensAwardedFormatted }}
-                </h4>
-              </div>
-            </div>
-          </div>
-        </div>
 
-
-        <p>&nbsp;</p>
-        <p>The Hashrate is automatically updated every 30 seconds.</p>
+<p>&nbsp;</p>
+<p>The Hashrate is automatically updated every 30 seconds.</p>
 
 
 
@@ -112,8 +110,6 @@
 
 
       </div>
-
-
 
       <ul class="nav nav-tabs" id="tabPanel" role="tablist">
         <li class="nav-item">
@@ -242,4 +238,7 @@
         MinutesPerShare=Pool</pre>
 </body>
 
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
 </html>

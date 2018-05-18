@@ -40,7 +40,7 @@
       <tbody>
         <tr> <td> Minting Gas Price: {{ pool.poolConfig.solutionGasPriceWei }} </td> </tr>
         <tr> <td> Transfer Gas Price: {{  pool.poolConfig.transferGasPriceWei }}  </td> </tr>
-        <tr> <td> Transfer Minimum Balance:  {{  pool.poolConfig.minBalanceForTransfer }}</td></tr>
+        <tr> <td> Transfer Minimum Balance:  {{  pool.poolConfig.minBalanceForTransfer / 1E8 }}</td></tr>
         <tr> <td> Minimum Share Difficulty:  {{  pool.poolConfig.minimumShareDifficulty }}</td></tr>
         <tr> <td> Fee %:  {{ pool.poolConfig.poolTokenFee }} </td> </tr>
      </tbody>
@@ -197,7 +197,7 @@
 
       <div id="pendingBalanceTransfersList" class="box  background-secondary " style="overflow-x:auto; min-height:480px;">
         <div class='subtitle'>Pending Balance Transfers</div>
-        <table class='table  table-dark'>
+        <table class='table  '>
 
           <thead>
             <tr >

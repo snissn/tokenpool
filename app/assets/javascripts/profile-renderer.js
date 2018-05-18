@@ -28,13 +28,12 @@ export default class ProfileRenderer {
 
     var self = this;
 
-    setInterval(function () {
-      console.log("updating profile data")
+    setInterval( function(){
 
       self.update();
 
 
-    }, 30 * 1000);
+    },15*1000);
 
 
     this.initSockets();
@@ -71,8 +70,8 @@ export default class ProfileRenderer {
 
 
 
-      data.address = minerAddress;
-      data.etherscanURL = 'https://www.etherchain.org/account/' + minerAddress.toString() + '#history';
+     data.address = minerAddress;
+     data.etherscanURL = 'https://etherscan.io/token/0xb6ed7644c69416d67b522e20bc294a9a9b405b31?a=' + minerAddress.toString();
 
       data.tokensAwardedFormatted = self.formatTokenQuantity(data.tokensAwarded);
       data.tokenBalanceFormatted = self.formatTokenQuantity(data.tokenBalance);
@@ -90,7 +89,8 @@ export default class ProfileRenderer {
     this.socket.on('minerBalancePayments', function (data) {
 
 
-      data.map(item => item.previousTokenBalanceFormatted = self.formatTokenQuantity(item.previousTokenBalance))
+     data.map(item => item.previousTokenBalanceFormatted  = self.formatTokenQuantity(item.previousTokenBalance)    )
+     data.map(item => item.time  = self.ethBlockNumberToDateStr(item.block)    )
 
       console.log('got minerBalancePayments')
       console.dir(data);
@@ -107,6 +107,7 @@ export default class ProfileRenderer {
 
       data.map(item => item.tokenAmountFormatted = self.formatTokenQuantity(item.tokenAmount))
 
+     data.map(item => item.time  = self.ethBlockNumberToDateStr(item.block)    )
 
       console.log('got minerBalanceTransfers')
       console.dir(data);
@@ -332,6 +333,12 @@ export default class ProfileRenderer {
     var quantity = (parseFloat(satoshis) / parseFloat(1e8)).toFixed(2)
     return quantity;
   }
+
+ethBlockNumberToDateStr(eth_block) {
+  var block_data = new Date("Mon Apr 30 2018 7:00:23 GMT-0400 (EDT)");
+  var latest_eth_block = 5532002;
+  return new Date(Date.now() - ((latest_eth_block - eth_block)*15*1000)).toLocaleString()
+}
 
 
   /*
