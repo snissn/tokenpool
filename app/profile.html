@@ -8,12 +8,7 @@
   </title>
 
   <%= require('html-loader!./assets/html/head.html') %>
-  <style>
-    .tableCell {
-      padding: 20px 12px 20px 12px !important;
-      font-size: 1.25rem;
-    }
-  </style>
+
 </head>
 
 <body>
@@ -135,23 +130,23 @@
         <div id="minerSubmittedSharesList" class="tab-pane active box background-secondary " style="overflow-x:auto; min-height:480px;">
           <div class='subtitle'>Submitted Shares</div>
           <canvas id="submittedCanvas"></canvas>
-          <table class='table table-striped'>
+          <table class='table '>
             <thead>
               <tr>
-                <th scope="col">EthBlock</th>
-                <th scope="col">Time</th>
-                <th scope="col">Difficulty</th>
-                <th scope="col">Nonce</th>
-                <th scope="col">Is Full Solution</th>
+                <td> EthBlock </td>
+                <td> Time </td>
+                <td> Difficulty </td>
+                <td> Nonce </td>
+                <td> Is Full Solution </td>
               </tr>
             </thead>
             <tbody>
               <tr v-for="(item, index) in shares.share_list">
-                <td class="tableCell">{{ item.block }}</td>
-                <td class="tableCell">{{ item.timeFormatted }}</td>
-                <td class="tableCell">{{ item.difficulty }}</td>
-                <td class="tableCell">{{ item.nonce }}</td>
-                <td class="tableCell">{{ item.isSolution }}</td>
+                <td> {{ item.block }} </td>
+                <td> {{ item.timeFormatted }} </td>
+                <td> {{ item.difficulty }} </td>
+                <td> {{ item.nonce }} </td>
+                <td> {{ item.isSolution }} </td>
               </tr>
             </tbody>
           </table>
@@ -162,18 +157,18 @@
           <table class='table '>
             <thead>
               <tr>
-                <th scope="col">EthBlock</th>
-                <th scope="col">Time</th>
-                <th scope="col">Difficulty</th>
-                <th scope="col">Nonce</th>
+                <td> EthBlock </td>
+                <td> Time </td>
+                <td> Difficulty </td>
+                <td> Nonce </td>
               </tr>
             </thead>
             <tbody>
               <tr v-for="(item, index) in shares.share_list">
-                <td class="tableCell">{{ item.block }}</td>
-                <td class="tableCell">{{ item.timeFormatted }}</td>
-                <td class="tableCell">{{ item.difficulty }}</td>
-                <td class="tableCell">{{ item.nonce }}</td>
+                <td> {{ item.block }} </td>
+                <td> {{ item.timeFormatted }} </td>
+                <td> {{ item.difficulty }} </td>
+                <td> {{ item.nonce }} </td>
               </tr>
             </tbody>
           </table>
@@ -181,45 +176,29 @@
         <div id="minerBalanceTransfersList" class="tab-pane box background-secondary " style="overflow-x:auto; min-height:480px;">
           <div class="subSection" style="margin-bottom: 50px;">
             <div class='subtitle'>Balance Transfers Reciepts</div>
-            <table class='table table-striped'>
+            <table class='table '>
               <thead>
                 <tr>
-                  <th scope="col">EthBlock</th>
-                  <th scope="col">Amount Sent</th>
-                  <th scope="col">Tx Hash</th>
-                  <th scope="col">Payment Id</th>
+                  <td> EthBlock </td>
+                  <td> Amount Sent </td>
+                  <td> Tx Hash </td>
+                  <td> Payment Id </td>
+                  <td> Id </td>
+                  <td> Balance Paid </td>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(item, index) in transactions.tx_list">
-                  <td class="tableCell">{{ item.block }}</td>
-                  <td class="tableCell">{{ item.tokenAmountFormatted }}</td>
-                  <td class="tableCell">
+                <tr v-for="(item, index) in newTransactions">
+                  <td> {{ item.block }} </td>
+                  <td> {{ item.tokenAmountFormatted }} </td>
+                  <td>
                     <a v-bind:href='item.etherscanTxURL'>
-                      <p>{{ item.txHash }}</p>
+                      <p> {{ item.txHash }} </p>
                     </a>
                   </td>
-                  <td class="tableCell">{{ item.balancePaymentId }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div class="subSection">
-            <div class='subtitle'>Balance Payouts</div>
-            <table class='table table-striped'>
-              <thead>
-                <tr>
-                  <th>EthBlock</th>
-                  <th>Id</th>
-                  <th>Balance Paid</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="(item, index) in transactions.tx_list">
-                  <td>{{ item.block }}</td>
-                  <td>{{ item.id }}</td>
-                  <td>{{ item.previousTokenBalanceFormatted }}</td>
+                  <td> {{ item.balancePaymentId }} </td>
+                  <td> {{ item.id }} </td>
+                  <td> {{ item.previousTokenBalanceFormatted }} </td>
                 </tr>
               </tbody>
             </table>

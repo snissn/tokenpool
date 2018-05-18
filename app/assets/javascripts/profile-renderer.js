@@ -2,6 +2,7 @@ const $ = require('jquery');
 import Vue from 'vue';
 var moment = require('moment');
 var Chart = require('chart.js');
+var _ = require('lodash');
 
 var io = require('socket.io-client');
 var renderUtils = require('./render-utils')
@@ -19,39 +20,40 @@ var minerAddress = null;
 export default class ProfileRenderer {
 
 
-  init( )
-  {
+  init() {
 
     minerAddress = this.getAccountUrlParam();
 
-    if(minerAddress == null) return
+    if (minerAddress == null) return
 
     var self = this;
 
-    setInterval( function(){
+    setInterval(function () {
       console.log("updating profile data")
 
       self.update();
 
 
-    },30*1000);
+    }, 30 * 1000);
 
 
-      this.initSockets();
+    this.initSockets();
 
   }
 
 
-  initSockets()
-  {
+  initSockets() {
 
     var self = this;
 
     var current_hostname = window.location.hostname;
 
-    const socketServer = 'http://'+current_hostname+':4000';
+    const socketServer = 'http://' + current_hostname + ':4000';
 
-    const options = {transports: ['websocket'], forceNew: true};
+    const options = {
+      transports: ['websocket'],
+      forceNew: true
+    };
     this.socket = io(socketServer, options);
 
     this.socket.on('connect', () => {
@@ -69,18 +71,18 @@ export default class ProfileRenderer {
 
 
 
-     data.address = minerAddress;
-     data.etherscanURL = 'https://www.etherchain.org/account/' + minerAddress.toString()+ '#history';
+      data.address = minerAddress;
+      data.etherscanURL = 'https://www.etherchain.org/account/' + minerAddress.toString() + '#history';
 
-     data.tokensAwardedFormatted = self.formatTokenQuantity( data.tokensAwarded  );
-     data.tokenBalanceFormatted = self.formatTokenQuantity( data.tokenBalance );
-     data.hashRateFormatted = renderUtils.formatHashRate( data.hashRate );
+      data.tokensAwardedFormatted = self.formatTokenQuantity(data.tokensAwarded);
+      data.tokenBalanceFormatted = self.formatTokenQuantity(data.tokenBalance);
+      data.hashRateFormatted = renderUtils.formatHashRate(data.hashRate);
 
-     console.log('got miner details')
-     console.dir(  data );
+      console.log('got miner details')
+      console.dir(data);
 
 
-     Vue.set(jumbotron.miner, 'minerData',  data )
+      Vue.set(jumbotron.miner, 'minerData', data)
 
     });
 
@@ -88,154 +90,206 @@ export default class ProfileRenderer {
     this.socket.on('minerBalancePayments', function (data) {
 
 
-     data.map(item => item.previousTokenBalanceFormatted  = self.formatTokenQuantity(item.previousTokenBalance)    )
+      data.map(item => item.previousTokenBalanceFormatted = self.formatTokenQuantity(item.previousTokenBalance))
 
-     console.log('got minerBalancePayments')
-     console.dir(  data );
+      console.log('got minerBalancePayments')
+      console.dir(data);
 
-      Vue.set(minerBalancePaymentsList, 'transactions',  {tx_list: data.slice(0,50) }  )
+      Vue.set(minerBalanceTransfersList, 'payoutTransactions', {
+        tx_list: data.slice(0, 50)
+      })
 
     });
 
     this.socket.on('minerBalanceTransfers', function (data) {
 
-      data.map(item => item.etherscanTxURL = item.txHash ? ('https://etherscan.io/tx/' + item.txHash.toString()):""  )
+      data.map(item => item.etherscanTxURL = item.txHash ? ('https://etherscan.io/tx/' + item.txHash.toString()) : "")
 
-      data.map(item => item.tokenAmountFormatted  = self.formatTokenQuantity(item.tokenAmount)    )
+      data.map(item => item.tokenAmountFormatted = self.formatTokenQuantity(item.tokenAmount))
 
 
       console.log('got minerBalanceTransfers')
-      console.dir(  data );
+      console.dir(data);
 
-      Vue.set(minerBalanceTransfersList, 'transactions',  {tx_list: data.slice(0,50) }  )
+      Vue.set(minerBalanceTransfersList, 'transactions', {
+        tx_list: data.slice(0, 50)
+      })
 
     });
 
     this.socket.on('minerSubmittedShares', function (data) {
 
       console.log('got minerSubmittedShares')
-      console.dir(  data );
+      console.dir(data);
 
-     data.map(item => item.timeFormatted = self.formatTime(item.time)     )
+      data.map(item => item.timeFormatted = self.formatTime(item.time))
 
-     data.map(item => item.hashRateFormatted =  renderUtils.formatHashRate(item.hashRateEstimate)    )
+      data.map(item => item.hashRateFormatted = renderUtils.formatHashRate(item.hashRateEstimate))
 
 
-      Vue.set(minerSubmittedSharesList, 'shares',  {share_list: data.slice(0,50) }  )
+      Vue.set(minerSubmittedSharesList, 'shares', {
+        share_list: data.slice(0, 50)
+      })
 
     });
 
     this.socket.on('minerInvalidShares', function (data) {
 
       console.log('got minerInvalidShares')
-      console.dir(  data );
-      
-     data.map(item => item.timeFormatted = self.formatTime(item.time)     )
+      console.dir(data);
+
+      data.map(item => item.timeFormatted = self.formatTime(item.time))
 
 
-      Vue.set(minerInvalidSharesList, 'shares',  {share_list: data.slice(0,50) }  )
+      Vue.set(minerInvalidSharesList, 'shares', {
+        share_list: data.slice(0, 50)
+      })
 
     });
 
     const createChart = (elementId, labels, data, label) => {
-	    const context = document.getElementById(elementId);
-	    const submittedCanvas = new Chart(context, {
-		    type: 'line',
-		    data: {
-			labels: labels,
-			datasets: [{
-			    label: label,
-			    data: data,
-			    borderColor: "rgb(75, 192, 192)",
-			    lineTension: 0.1,
-			    fill: false
-			}]
-		    },
-		    options: {
-			animation: {
-			    duration: 0,
-			},
-			scales: {
-			    yAxes: [{
-				ticks: {
-				    beginAtZero:true
-				}
-			    }]
-			}
-		    }
-		});
+      const context = document.getElementById(elementId);
+      const submittedCanvas = new Chart(context, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: label,
+            data: data,
+            borderColor: "rgb(75, 192, 192)",
+            lineTension: 0.1,
+            fill: false
+          }]
+        },
+        options: {
+          animation: {
+            duration: 0,
+          },
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true
+              }
+            }]
+          }
+        }
+      });
     }
 
 
     jumbotron = new Vue({
-         el: '#jumbotron',
-         data:{
-           miner:{
-             minerData: { address: minerAddress , etherscanURL: ('https://etherscan.io/address/'+minerAddress.toString())},
-            }
-          }
-       });
+      el: '#jumbotron',
+      data: {
+        miner: {
+          minerData: {
+            address: minerAddress,
+            etherscanURL: ('https://etherscan.io/address/' + minerAddress.toString())
+          },
+        }
+      }
+    });
 
 
     minerBalancePaymentsList = new Vue({
-        el: '#minerBalancePaymentsList',
-        data: {
-          transactions: {
-            tx_list: []
-          }
+      el: '#minerBalancePaymentsList',
+      data: {
+        transactions: {
+          tx_list: []
         }
-      })
+      }
+    })
 
-      minerBalanceTransfersList = new Vue({
-          el: '#minerBalanceTransfersList',
-          data: {
-            transactions: {
-              tx_list: []
+    minerBalanceTransfersList = new Vue({
+      el: '#minerBalanceTransfersList',
+      data: {
+        transactions: {
+          tx_list: []
+        },
+        payoutTransactions: {
+          tx_list: []
+        },
+      },
+      methods: {
+        leftJoin(left, right, left_id, right_id) {
+          var result = [];
+          _.each(left, function (litem) {
+            var f = _.filter(right, function (ritem) {
+              return ritem[right_id] == litem[left_id];
+            });
+            if (f.length == 0) {
+              f = [{}];
             }
-          }
-        })
+            _.each(f, function (i) {
+              var newObj = {};
+              _.each(litem, function (v, k) {
+                newObj[k] = v;
+              });
+              _.each(i, function (v, k) {
+                newObj[k] = v;
+              });
+              result.push(newObj);
+            });
+          });
+          return result;
+        }
+      },
+      computed: {
+        newTransactions() {
+          return this.leftJoin(this.payoutTransactions.tx_list, this.transactions.tx_list, "id", "balancePaymentId")
+        }
+      }
+    })
 
-        minerSubmittedSharesList = new Vue({
-            el: '#minerSubmittedSharesList',
-            data: {
-              shares: {
-                share_list: []
-              }
-            },
-            updated() {
-                const labels = this.shares.share_list.map(share => share.timeFormatted).reverse();
-                const data = this.shares.share_list.map(share => share.difficulty).reverse();
-                createChart("submittedCanvas", labels, data, "Difficulty");
-            },
-          })
+    minerSubmittedSharesList = new Vue({
+      el: '#minerSubmittedSharesList',
+      data: {
+        shares: {
+          share_list: []
+        }
+      },
+      updated() {
+        const labels = this.shares.share_list.map(share => share.timeFormatted).reverse();
+        const data = this.shares.share_list.map(share => share.difficulty).reverse();
+        createChart("submittedCanvas", labels, data, "Difficulty");
+      },
+    })
 
-          minerInvalidSharesList = new Vue({
-              el: '#minerInvalidSharesList',
-              data: {
-                shares: {
-                  share_list: []
-                },
-              },
-              updated() {
-                    const labels = this.shares.share_list.map(share => share.timeFormatted).reverse();
-                    const data = this.shares.share_list.map(share => share.difficulty).reverse();
-                    createChart("invalidCanvas", labels, data, "Difficulty");
-                },
-            })
+    minerInvalidSharesList = new Vue({
+      el: '#minerInvalidSharesList',
+      data: {
+        shares: {
+          share_list: []
+        },
+      },
+      updated() {
+        const labels = this.shares.share_list.map(share => share.timeFormatted).reverse();
+        const data = this.shares.share_list.map(share => share.difficulty).reverse();
+        createChart("invalidCanvas", labels, data, "Difficulty");
+      },
+    })
 
-        this.socket.emit('getMinerDetails',{address: minerAddress});
+    this.socket.emit('getMinerDetails', {
+      address: minerAddress
+    });
 
-        this.socket.emit('getMinerBalancePayments',{address: minerAddress});
-        this.socket.emit('getMinerBalanceTransfers',{address: minerAddress});
-        this.socket.emit('getMinerSubmittedShares',{address: minerAddress});
-        this.socket.emit('getMinerInvalidShares',{address: minerAddress});
+    this.socket.emit('getMinerBalancePayments', {
+      address: minerAddress
+    });
+    this.socket.emit('getMinerBalanceTransfers', {
+      address: minerAddress
+    });
+    this.socket.emit('getMinerSubmittedShares', {
+      address: minerAddress
+    });
+    this.socket.emit('getMinerInvalidShares', {
+      address: minerAddress
+    });
 
 
 
   }
 
-  getAccountUrlParam()
-  {
+  getAccountUrlParam() {
 
     let url = new URL(window.location.href);
     let searchParams = new URLSearchParams(url.search);
@@ -245,40 +299,47 @@ export default class ProfileRenderer {
     return searchParams.get('address');
   }
 
-  update(){
+  update() {
 
-            this.socket.emit('getMinerDetails',{address: minerAddress});
+    this.socket.emit('getMinerDetails', {
+      address: minerAddress
+    });
 
-            this.socket.emit('getMinerBalancePayments',{address: minerAddress});
-            this.socket.emit('getMinerBalanceTransfers',{address: minerAddress});
-            this.socket.emit('getMinerSubmittedShares',{address: minerAddress});
-            this.socket.emit('getMinerInvalidShares',{address: minerAddress});
+    this.socket.emit('getMinerBalancePayments', {
+      address: minerAddress
+    });
+    this.socket.emit('getMinerBalanceTransfers', {
+      address: minerAddress
+    });
+    this.socket.emit('getMinerSubmittedShares', {
+      address: minerAddress
+    });
+    this.socket.emit('getMinerInvalidShares', {
+      address: minerAddress
+    });
 
   }
 
-  formatTime(time)
-  {
-    if(time == null || time == 0)
-    {
+  formatTime(time) {
+    if (time == null || time == 0) {
       return "--";
     }
 
     return moment.unix(time).format('MM/DD HH:mm');
   }
 
-  formatTokenQuantity(satoshis)
-  {
+  formatTokenQuantity(satoshis) {
     var quantity = (parseFloat(satoshis) / parseFloat(1e8)).toFixed(2)
     return quantity;
   }
 
 
-/*
-  let url = new URL('http://www.test.com/t.html?a=1&b=3&c=m2-m3-m4-m5');
-  let searchParams = new URLSearchParams(url.search);
-  console.log(searchParams.get('c'));
+  /*
+    let url = new URL('http://www.test.com/t.html?a=1&b=3&c=m2-m3-m4-m5');
+    let searchParams = new URLSearchParams(url.search);
+    console.log(searchParams.get('c'));
 
-*/
+  */
 
 
 }
