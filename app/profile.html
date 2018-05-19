@@ -177,10 +177,8 @@
                 <tr>
                   <td> EthBlock </td>
                   <td> Amount Sent </td>
-                  <td> Tx Hash </td>
-                  <td> Payment Id </td>
-                  <td> Id </td>
-                  <td> Balance Paid </td>
+                  <td> Confirmed Ethereum Transaction Id  </td>
+                  <td> Pool Payout Id </td>
                 </tr>
               </thead>
               <tbody>
@@ -193,11 +191,10 @@
                     </a>
                   </td>
                   <td> {{ item.balancePaymentId }} </td>
-                  <td> {{ item.id }} </td>
-                  <td> {{ item.previousTokenBalanceFormatted }} </td>
                 </tr>
               </tbody>
             </table>
+            <p> There may be multiple Pool Payout Ids in the table, if there are that means the pool attempted to payout for that ID multiple times, until it is confirmed by the ethereum network.</p>
           </div>
         </div>
       </div>
@@ -207,16 +204,6 @@
       <div id="about" class="box background-secondary has-text-centered">
         <div class="whitespace-sm"></div>
 
-        <div class='title'> Token Mining Pool </div>
-
-        <div class="whitespace-sm"></div>
-
-        <div class='subtitle '> Mine Ethereum tokens distributed using Proof of Work </div>
-
-
-        <div class="">
-
-        </div>
 
         <div class="">
           <p> Read more on
@@ -232,10 +219,6 @@
 
 
       <%= require('html-loader!./assets/html/footer.html') %>
-
-        <h4>If you are mining MVI's AMD miner, make sure that your config file has MinutesPerShare=Pool:</h4>
-        <pre>[0xBitcoin]
-        MinutesPerShare=Pool</pre>
 </body>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

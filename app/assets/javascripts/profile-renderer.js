@@ -113,7 +113,7 @@ export default class ProfileRenderer {
       console.dir(data);
 
       Vue.set(minerBalanceTransfersList, 'transactions', {
-        tx_list: data.slice(0, 50)
+        tx_list: data
       })
 
     });
