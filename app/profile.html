@@ -7,12 +7,7 @@
     <%= htmlWebpackPlugin.options.title %>
   </title>
   <%= require('html-loader!./assets/html/head.html') %>
-  <style>
-    .tableCell {
-      padding: 20px 12px 20px 12px !important;
-      font-size: 1.25rem;
-    }
-  </style>
+
 </head>
 
 <body>
@@ -131,23 +126,23 @@
         <div id="minerSubmittedSharesList" class="tab-pane active box background-secondary " style="overflow-x:auto; min-height:480px;">
           <div class='subtitle'>Submitted Shares</div>
           <canvas id="submittedCanvas"></canvas>
-          <table class='table table-striped'>
+          <table class='table '>
             <thead>
               <tr>
-                <th scope="col">EthBlock</th>
-                <th scope="col">Time</th>
-                <th scope="col">Difficulty</th>
-                <th scope="col">Nonce</th>
-                <th scope="col">Is Full Solution</th>
+                <td> EthBlock </td>
+                <td> Time </td>
+                <td> Difficulty </td>
+                <td> Nonce </td>
+                <td> Is Full Solution </td>
               </tr>
             </thead>
             <tbody>
               <tr v-for="(item, index) in shares.share_list">
-                <td class="tableCell">{{ item.block }}</td>
-                <td class="tableCell">{{ item.timeFormatted }}</td>
-                <td class="tableCell">{{ item.difficulty }}</td>
-                <td class="tableCell">{{ item.nonce }}</td>
-                <td class="tableCell">{{ item.isSolution }}</td>
+                <td> {{ item.block }} </td>
+                <td> {{ item.timeFormatted }} </td>
+                <td> {{ item.difficulty }} </td>
+                <td> {{ item.nonce }} </td>
+                <td> {{ item.isSolution }} </td>
               </tr>
             </tbody>
           </table>
@@ -158,18 +153,18 @@
           <table class='table '>
             <thead>
               <tr>
-                <th scope="col">EthBlock</th>
-                <th scope="col">Time</th>
-                <th scope="col">Difficulty</th>
-                <th scope="col">Nonce</th>
+                <td> EthBlock </td>
+                <td> Time </td>
+                <td> Difficulty </td>
+                <td> Nonce </td>
               </tr>
             </thead>
             <tbody>
               <tr v-for="(item, index) in shares.share_list">
-                <td class="tableCell">{{ item.block }}</td>
-                <td class="tableCell">{{ item.timeFormatted }}</td>
-                <td class="tableCell">{{ item.difficulty }}</td>
-                <td class="tableCell">{{ item.nonce }}</td>
+                <td> {{ item.block }} </td>
+                <td> {{ item.timeFormatted }} </td>
+                <td> {{ item.difficulty }} </td>
+                <td> {{ item.nonce }} </td>
               </tr>
             </tbody>
           </table>
@@ -177,48 +172,29 @@
         <div id="minerBalanceTransfersList" class="tab-pane box background-secondary " style="overflow-x:auto; min-height:480px;">
           <div class="subSection" style="margin-bottom: 50px;">
             <div class='subtitle'>Balance Transfers Reciepts</div>
-            <table class='table table-striped'>
+            <table class='table '>
               <thead>
                 <tr>
-                  <th scope="col">EthBlock</th>
-                  <th scope="col">Amount Sent</th>
-                  <th scope="col">Tx Hash</th>
-                  <th scope="col">Payment Id</th>
+                  <td> EthBlock </td>
+                  <td> Amount Sent </td>
+                  <td> Confirmed Ethereum Transaction Id  </td>
+                  <td> Pool Payout Id </td>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(item, index) in transactions.tx_list">
-                  <td class="tableCell">{{ item.block }}</td>
-                  <td class="tableCell">{{ item.tokenAmountFormatted }}</td>
-                  <td class="tableCell">
+                <tr v-for="(item, index) in newTransactions">
+                  <td> {{ item.block }} </td>
+                  <td> {{ item.tokenAmountFormatted }} </td>
+                  <td>
                     <a v-bind:href='item.etherscanTxURL'>
-                      <p>{{ item.txHash }}</p>
+                      <p> {{ item.txHash }} </p>
                     </a>
                   </td>
-                  <td class="tableCell">{{ item.balancePaymentId }}</td>
+                  <td> {{ item.balancePaymentId }} </td>
                 </tr>
               </tbody>
             </table>
-          </div>
-
-          <div class="subSection">
-            <div class='subtitle'>Balance Payouts</div>
-            <table class='table table-striped'>
-              <thead>
-                <tr>
-                  <th>EthBlock</th>
-                  <th>Id</th>
-                  <th>Balance Paid</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="(item, index) in transactions.tx_list">
-                  <td>{{ item.block }}</td>
-                  <td>{{ item.id }}</td>
-                  <td>{{ item.previousTokenBalanceFormatted }}</td>
-                </tr>
-              </tbody>
-            </table>
+            <p> There may be multiple Pool Payout Ids in the table, if there are that means the pool attempted to payout for that ID multiple times, until it is confirmed by the ethereum network.</p>
           </div>
         </div>
       </div>
@@ -228,16 +204,6 @@
       <div id="about" class="box background-secondary has-text-centered">
         <div class="whitespace-sm"></div>
 
-        <div class='title'> Token Mining Pool </div>
-
-        <div class="whitespace-sm"></div>
-
-        <div class='subtitle '> Mine Ethereum tokens distributed using Proof of Work </div>
-
-
-        <div class="">
-
-        </div>
 
         <div class="">
           <p> Read more on
@@ -253,10 +219,6 @@
 
 
       <%= require('html-loader!./assets/html/footer.html') %>
-
-        <h4>If you are mining MVI's AMD miner, make sure that your config file has MinutesPerShare=Pool:</h4>
-        <pre>[0xBitcoin]
-        MinutesPerShare=Pool</pre>
 </body>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
