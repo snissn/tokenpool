@@ -184,13 +184,13 @@
               <tbody>
                 <tr v-for="(item, index) in newTransactions">
                   <td> {{ item.block }} </td>
-                  <td> {{ item.tokenAmountFormatted }} </td>
+                  <td> {{ item.previousTokenBalanceFormatted }} </td>
                   <td>
                     <a v-bind:href='item.etherscanTxURL'>
                       <p> {{ item.txHash }} </p>
                     </a>
                   </td>
-                  <td> {{ item.balancePaymentId }} </td>
+                   <td> {{ item.id }} </td>
                 </tr>
               </tbody>
             </table>
