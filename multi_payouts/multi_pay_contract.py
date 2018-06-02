@@ -1,13 +1,13 @@
 import web3
+import json
 from web3.contract import ConciseContract
 import sys
 import time
 from web3 import Web3
 from web3 import Web3, HTTPProvider
 import eth_utils
-
-
 import os
+import redis
 
 def get_keys():
   folder = os.path.dirname(os.path.realpath(__file__))
@@ -25,9 +25,11 @@ class Multisend(object):
     self.pub_key,self.private_key = get_keys()
     self.w3.eth.enable_unaudited_features()
 
+  
+
   def get_eth_block_number(self):
     return self.w3.eth.blockNumber
-  def send_many(self,addresses, values):
+  def send_many(self,addresses, values, sent_transactions):
     multisend = self.w3.eth.contract( address= "0x1A64f4b6aC7339468b24789E560C9Eb1F9A82CF6" , abi= [{"constant":False,"inputs":[{"name":"_tokenAddr","type":"address"},{"name":"dest","type":"address"},{"name":"value","type":"uint256"}],"name":"send","outputs":[],"payable":False,"stateMutability":"nonpayable","type":"function"},{"constant":False,"inputs":[],"name":"withdraw","outputs":[],"payable":False,"stateMutability":"nonpayable","type":"function"},{"constant":True,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":False,"stateMutability":"view","type":"function"},{"constant":False,"inputs":[{"name":"_tokenAddr","type":"address"},{"name":"dests","type":"address[]"},{"name":"values","type":"uint256[]"}],"name":"multisend","outputs":[{"name":"","type":"uint256"}],"payable":False,"stateMutability":"nonpayable","type":"function"},{"constant":False,"inputs":[{"name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":False,"stateMutability":"nonpayable","type":"function"}] ) # first deployed with return
     nonce = self.w3.eth.getTransactionCount(self.pub_key)
 
@@ -35,7 +37,7 @@ class Multisend(object):
            #'chainId': web3.eth.net.getId() ,
            'gas': 4700000,
            'from': self.pub_key,
-           'gasPrice': self.w3.eth.gasPrice
+           'gasPrice': self.w3.eth.gasPrice*2,
            'nonce': nonce,
        })
     signed_txn = self.w3.eth.account.signTransaction(multisend_tx, private_key=self.private_key)
@@ -49,6 +51,43 @@ class Multisend(object):
       if confirmation and confirmation['blockNumber']:
         if not confirmation['status']:
           raise
-        return hex_transaction
+        return self.update_redis(sent_transactions, hex_transaction)
       time.sleep(30)
     raise
+
+  def update_redis(self, sent_transactions, hex_transaction):
+    eth_block = self.get_eth_block_number()
+    r = redis.Redis()
+    for pubkey in sent_transactions:
+#update balances
+      upubkey = pubkey
+      data = r.hget("miner_data",pubkey)
+      satoshis = sent_transactions[pubkey]
+      pubkey = pubkey.encode()
+      print(data)
+      data = json.loads(data.decode())
+      data['tokenBalance'] -= satoshis
+      data['tokensAwarded'] += satoshis
+      print(data)
+      r.hset(b"miner_data",pubkey,json.dumps(data).encode())
+#update balances
+
+#update balance_payments
+      balance_payments = {"id" : hex_transaction, "minerAddress" : upubkey, "previousTokenBalance": satoshis, "newTokenBalance" : data['tokenBalance'] , "block": eth_block, "time": time.time()}
+      balance_payments = json.dumps(balance_payments)
+      r.lpush(b"balance_payments:" + pubkey, balance_payments)
+#update balance_payments
+
+#update balance_transfers
+      balance_transfers = { "addressTo": upubkey, "balancePaymentId": hex_transaction, "tokenAmount" : satoshis, "txHash": hex_transaction, "block":eth_block, "confirmed": True, "time":time.time()}
+      balance_transfers = json.dumps(balance_transfers)
+      r.lpush(b"balance_transfers:" + pubkey, balance_transfers)
+#"{\"addressTo\":\"0xae421cdee3ac61d85c2e1da253ce44ee9e354df6\",\"balancePaymentId\":\"0x47b989bd64134013cf2910b5f5ad33513092cdce8d917275b4d74269de40e0eb\",\"tokenAmount\":2505272293,\"txHash\":\"0x4f96b5996f02ad759b97ba4f580f899329d48349c534d371e58ea1739c693fdc\",\"block\":5706462,\"confirmed\":false}"
+#update balance_transfers
+
+  def isInvalidAddress(self, address): # not a contract
+    try:
+      return len(self.w3.eth.getCode(Web3.toChecksumAddress(address.decode()))) > 0
+    except Exception as oops:
+      print(oops)
+      return False
