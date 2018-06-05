@@ -25,7 +25,7 @@ export default class AccountRenderer {
 
     var current_hostname = window.location.hostname;
 
-    const socketServer = 'http://' + current_hostname + ':4000';
+    const socketServer = 'http://' + current_hostname + ':2095';
 
     const options = {
       transports: ['websocket'],
@@ -50,6 +50,7 @@ export default class AccountRenderer {
 
       var totalShares = 0;
       data = data.filter(item => item.minerAddress.toString().length == 42);
+      data = data.filter(item => item.minerData);
 
       data.map(item => item.minerData.tokenBalanceFormatted = (item.minerData.tokenBalance / 10 ** 8).toFixed(2))
       data.map(item => item.minerData.tokenRewardsFormatted = (item.minerData.tokensAwarded / 10 ** 8).toFixed(2))
