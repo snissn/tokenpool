@@ -9,6 +9,8 @@ import eth_utils
 import os
 import redis
 
+import btc
+
 def get_keys():
   folder = os.path.dirname(os.path.realpath(__file__))
   lines = open(folder+"/../account.config.js").read().splitlines()
@@ -21,6 +23,7 @@ def get_keys():
 class Multisend(object):
   def __init__(self):
     infura_provider = HTTPProvider('https://mainnet.infura.io/2IbUn6pXsKwj7z327A4A ')
+    #infura_provider = HTTPProvider('http://localhost:8545')
     self.w3 = Web3( infura_provider)
     self.pub_key,self.private_key = get_keys()
     self.w3.eth.enable_unaudited_features()
@@ -29,15 +32,16 @@ class Multisend(object):
 
   def get_eth_block_number(self):
     return self.w3.eth.blockNumber
+
   def send_many(self,addresses, values, sent_transactions):
     multisend = self.w3.eth.contract( address= "0x1A64f4b6aC7339468b24789E560C9Eb1F9A82CF6" , abi= [{"constant":False,"inputs":[{"name":"_tokenAddr","type":"address"},{"name":"dest","type":"address"},{"name":"value","type":"uint256"}],"name":"send","outputs":[],"payable":False,"stateMutability":"nonpayable","type":"function"},{"constant":False,"inputs":[],"name":"withdraw","outputs":[],"payable":False,"stateMutability":"nonpayable","type":"function"},{"constant":True,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":False,"stateMutability":"view","type":"function"},{"constant":False,"inputs":[{"name":"_tokenAddr","type":"address"},{"name":"dests","type":"address[]"},{"name":"values","type":"uint256[]"}],"name":"multisend","outputs":[{"name":"","type":"uint256"}],"payable":False,"stateMutability":"nonpayable","type":"function"},{"constant":False,"inputs":[{"name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":False,"stateMutability":"nonpayable","type":"function"}] ) # first deployed with return
     nonce = self.w3.eth.getTransactionCount(self.pub_key)
 
     multisend_tx = multisend.functions.multisend("0xB6eD7644C69416d67B522e20bC294A9a9B405B31",addresses,values).buildTransaction({
            #'chainId': web3.eth.net.getId() ,
-           'gas': 4700000,
+           'gas': 5216028,
            'from': self.pub_key,
-           'gasPrice': self.w3.eth.gasPrice*2,
+           'gasPrice': int(self.w3.eth.gasPrice*1.2),
            'nonce': nonce,
        })
     signed_txn = self.w3.eth.account.signTransaction(multisend_tx, private_key=self.private_key)
@@ -91,3 +95,50 @@ class Multisend(object):
     except Exception as oops:
       print(oops)
       return False
+
+  def transfer(self, address, value, pubkey):
+  
+    ebtc = self.w3.eth.contract( address=btc.address, abi=btc.abi )
+    print(ebtc.functions.transfer)
+    nonce = self.w3.eth.getTransactionCount(self.pub_key)
+    multisend_tx = ebtc.functions.transfer(address, value).buildTransaction({
+           #'chainId': web3.eth.net.getId() ,
+           'gas': 62608,
+           'from': self.pub_key,
+           'gasPrice': int(self.w3.eth.gasPrice*1.2),
+           'nonce': nonce,
+       })
+    signed_txn = self.w3.eth.account.signTransaction(multisend_tx, private_key=self.private_key)
+    self.w3.eth.sendRawTransaction(signed_txn.rawTransaction)
+
+    hex_transaction = self.w3.toHex(self.w3.sha3(signed_txn.rawTransaction))
+    for i in range(90*2): # 90 minutes
+      print("checking transaction", hex_transaction)
+      confirmation = self.w3.eth.getTransactionReceipt(hex_transaction)
+      print("confirmation:", confirmation)
+      if confirmation and confirmation['blockNumber']:
+        if not confirmation['status']:
+          raise
+        return self.update_one( pubkey, value, hex_transaction)
+      time.sleep(30)
+    raise
+
+  def update_one(self, address, value, hex_transaction):
+    eth_block = self.get_eth_block_number()
+    r = redis.Redis()
+    data = r.hget("miner_data",address)
+    pubkey = address#.encode()
+    print(data)
+    data = json.loads(data.decode())
+    data['tokenBalance'] -= value
+    data['tokensAwarded'] += value
+    print(data)
+    r.hset(b"miner_data",address,json.dumps(data).encode())
+
+    balance_payments = {"id" : hex_transaction, "minerAddress" : pubkey, "previousTokenBalance": value, "newTokenBalance" : data['tokenBalance'] , "block": eth_block, "time": time.time()}
+    balance_payments = json.dumps(balance_payments)
+    r.lpush("balance_payments:" + pubkey, balance_payments)
+
+    balance_transfers = { "addressTo": pubkey, "balancePaymentId": hex_transaction, "tokenAmount" : value, "txHash": hex_transaction, "block":eth_block, "confirmed": True, "time":time.time()}
+    balance_transfers = json.dumps(balance_transfers)
+    r.lpush("balance_transfers:" + pubkey, balance_transfers)
