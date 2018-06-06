@@ -49,7 +49,7 @@
     "web3": "^1.0.0-beta.28",
     "web3-eth": "^1.0.0-beta.30",
     "web3-utils": "^1.0.0-beta.29",
-    "webpack": "^3.11.0",
+    "webpack": "^3.12.0",
     "worker-loader": "^1.1.0"
   },
   "devDependencies": {
