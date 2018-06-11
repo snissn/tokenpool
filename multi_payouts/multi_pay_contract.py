@@ -36,10 +36,11 @@ class Multisend(object):
   def send_many(self,addresses, values, sent_transactions):
     multisend = self.w3.eth.contract( address= "0x1A64f4b6aC7339468b24789E560C9Eb1F9A82CF6" , abi= [{"constant":False,"inputs":[{"name":"_tokenAddr","type":"address"},{"name":"dest","type":"address"},{"name":"value","type":"uint256"}],"name":"send","outputs":[],"payable":False,"stateMutability":"nonpayable","type":"function"},{"constant":False,"inputs":[],"name":"withdraw","outputs":[],"payable":False,"stateMutability":"nonpayable","type":"function"},{"constant":True,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":False,"stateMutability":"view","type":"function"},{"constant":False,"inputs":[{"name":"_tokenAddr","type":"address"},{"name":"dests","type":"address[]"},{"name":"values","type":"uint256[]"}],"name":"multisend","outputs":[{"name":"","type":"uint256"}],"payable":False,"stateMutability":"nonpayable","type":"function"},{"constant":False,"inputs":[{"name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":False,"stateMutability":"nonpayable","type":"function"}] ) # first deployed with return
     nonce = self.w3.eth.getTransactionCount(self.pub_key)
+    print("gas:",  int(self.w3.eth.gasPrice*1.2))
 
     multisend_tx = multisend.functions.multisend("0xB6eD7644C69416d67B522e20bC294A9a9B405B31",addresses,values).buildTransaction({
            #'chainId': web3.eth.net.getId() ,
-           'gas': 5216028,
+           'gas': 2216028,
            'from': self.pub_key,
            'gasPrice': int(self.w3.eth.gasPrice*1.2),
            'nonce': nonce,
@@ -61,7 +62,7 @@ class Multisend(object):
 
   def update_redis(self, sent_transactions, hex_transaction):
     eth_block = self.get_eth_block_number()
-    r = redis.Redis()
+    r = redis.Redis(host='10.142.0.4')
     for pubkey in sent_transactions:
 #update balances
       upubkey = pubkey
@@ -125,7 +126,7 @@ class Multisend(object):
 
   def update_one(self, address, value, hex_transaction):
     eth_block = self.get_eth_block_number()
-    r = redis.Redis()
+    r = redis.Redis(host='10.142.0.4')
     data = r.hget("miner_data",address)
     pubkey = address#.encode()
     print(data)
