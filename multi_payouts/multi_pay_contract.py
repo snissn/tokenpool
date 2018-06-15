@@ -102,6 +102,7 @@ class Multisend(object):
     ebtc = self.w3.eth.contract( address=btc.address, abi=btc.abi )
     print(ebtc.functions.transfer)
     nonce = self.w3.eth.getTransactionCount(self.pub_key)
+    print({'gasPrice': int(self.w3.eth.gasPrice*1.2)})
     multisend_tx = ebtc.functions.transfer(address, value).buildTransaction({
            #'chainId': web3.eth.net.getId() ,
            'gas': 62608,
