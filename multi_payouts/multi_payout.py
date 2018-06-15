@@ -19,7 +19,7 @@ addresses = []
 
 print(addresses)
 
-payout_min = 5
+payout_min = 3
 if len(sys.argv) > 1:
   payout_user = int(sys.argv[1])
   if payout_user > payout_min:
@@ -44,6 +44,8 @@ for pubkey in r.hgetall("miner_data"):
           sent_transactions[pubkey.decode()] = balance
           total_balance += balance
           payouts.append(balance)
+          if len(sent_transactions) > 120:
+            break
     except Exception:
       print(miner)
 
@@ -64,8 +66,8 @@ print('pay')
 
 if len(sent_transactions) > 0:
   txID = sender.send_many(addresses, payouts, sent_transactions)
+  time.sleep(60)
 #multi_pay_contract.update_redis(sent_transactions)
-time.sleep(60)
 for address, satoshis, pubkey in merc:
   print(address, satoshis)
   sender.transfer(address,satoshis, pubkey.decode())
