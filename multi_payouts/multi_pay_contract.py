@@ -49,7 +49,7 @@ class Multisend(object):
     self.w3.eth.sendRawTransaction(signed_txn.rawTransaction)
 
     hex_transaction = self.w3.toHex(self.w3.sha3(signed_txn.rawTransaction))
-    for i in range(90*2): # 90 minutes
+    for i in range(360*2*10): # 6 hours
       print("checking transaction", hex_transaction)
       confirmation = self.w3.eth.getTransactionReceipt(hex_transaction)
       print("confirmation:", confirmation)
