@@ -4,27 +4,9 @@ sudo apt-get install -y nodejs redis-server build-essential
 
 npm install
 npm install redis
+npm install ethereum-blockies
 npm run webpack
 
 
-
-sudo add-apt-repository -y ppa:ethereum/ethereum
-sudo apt-get update
-sudo apt-get install ethereum -y
-
-
-
-
-
-echo 
-
-echo 'run 
-
-npm run dev &
-
-node fixed_diff.js &'
-
-
-
-
-
+sudo apt-get install python3-pip  libssl-dev -y
+sudo pip3 install ethereum
