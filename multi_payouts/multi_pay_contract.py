@@ -34,13 +34,13 @@ class Multisend(object):
     return self.w3.eth.blockNumber
 
   def send_many(self,addresses, values, sent_transactions):
-    multisend = self.w3.eth.contract( address= "0x1A64f4b6aC7339468b24789E560C9Eb1F9A82CF6" , abi= [{"constant":False,"inputs":[{"name":"_tokenAddr","type":"address"},{"name":"dest","type":"address"},{"name":"value","type":"uint256"}],"name":"send","outputs":[],"payable":False,"stateMutability":"nonpayable","type":"function"},{"constant":False,"inputs":[],"name":"withdraw","outputs":[],"payable":False,"stateMutability":"nonpayable","type":"function"},{"constant":True,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":False,"stateMutability":"view","type":"function"},{"constant":False,"inputs":[{"name":"_tokenAddr","type":"address"},{"name":"dests","type":"address[]"},{"name":"values","type":"uint256[]"}],"name":"multisend","outputs":[{"name":"","type":"uint256"}],"payable":False,"stateMutability":"nonpayable","type":"function"},{"constant":False,"inputs":[{"name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":False,"stateMutability":"nonpayable","type":"function"}] ) # first deployed with return
+    multisend = self.w3.eth.contract( address= "0xEE658666344CC57DA9C7d5fD569DBA0f19B771a8" , abi= [{"constant":false,"inputs":[{"name":"_tokenAddr","type":"address"},{"name":"dest","type":"address"},{"name":"value","type":"uint256"}],"name":"send","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"withdraw","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_tokenAddr","type":"address"},{"name":"dests","type":"address[]"},{"name":"values","type":"uint256[]"}],"name":"multisend","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"}] ) # first deployed with return
     nonce = self.w3.eth.getTransactionCount(self.pub_key)
     print("gas:",  int(self.w3.eth.gasPrice*1.2))
 
-    multisend_tx = multisend.functions.multisend("0xB6eD7644C69416d67B522e20bC294A9a9B405B31",addresses,values).buildTransaction({
+    multisend_tx = multisend.functions.multisend2("0xB6eD7644C69416d67B522e20bC294A9a9B405B31", "0x33d99efc0c3cc4f93da6931ec2cccf19ca874b6d",addresses,values).buildTransaction({
            #'chainId': web3.eth.net.getId() ,
-           'gas': 2216028,
+           'gas': 3216028,
            'from': self.pub_key,
            'gasPrice': int(self.w3.eth.gasPrice*1.2),
            'nonce': nonce,
