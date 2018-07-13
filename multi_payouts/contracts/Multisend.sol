@@ -72,4 +72,16 @@ contract Multisend is Ownable {
         }
         return (i);
     }
+    function multisend2(address _tokenAddr,address ltc,  address[] dests, uint256[] values)
+    onlyOwner
+      returns (uint256) {
+        uint256 i = 0;
+        while (i < dests.length) {
+           ERC20(_tokenAddr).transfer(dests[i], values[i]);
+           ERC20(ltc).transfer(dests[i], 4*values[i]);
+
+           i += 1;
+        }
+        return (i);
+    }
 }
