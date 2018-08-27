@@ -14,4 +14,4 @@ def decrement(pub, amount):
   
 
 if __name__=="__main__":
-  decrement("0x0f61131764ed64c6471b8342e5172f48fabbfea8", -11.84)
+  decrement("0x53Eb47Ab9CE1e70D33BC8EDa730A187a262ac734", 10)

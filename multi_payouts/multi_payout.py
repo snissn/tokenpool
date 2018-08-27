@@ -19,9 +19,9 @@ addresses = []
 
 print(addresses)
 
-payout_min = 3
-if len(sys.argv) > 1:
-  payout_user = int(sys.argv[1])
+payout_min = 0
+if len(sys.argv) > 1.0:
+  payout_user = float(sys.argv[1])
   if payout_user > payout_min:
     payout_min = payout_user
 
@@ -34,23 +34,24 @@ for pubkey in r.hgetall("miner_data"):
     try:
       miner = r.hget("miner_data", pubkey)
       minerData = json.loads(miner.decode())
-      balance = int(minerData['tokenBalance']) # Todo remove 1E8 for live
+      balance = int(minerData['tokenBalance'])
       if balance >payout_min*1E8:
           if sender.isInvalidAddress(pubkey):
             print("pubkey is contract", pubkey)
             merc.append([ Web3.toChecksumAddress(pubkey.decode()), balance, pubkey])
+            total_balance += balance
             continue
           addresses.append(Web3.toChecksumAddress(pubkey.decode()))
           sent_transactions[pubkey.decode()] = balance
           total_balance += balance
           payouts.append(balance)
-          if len(sent_transactions) > 120:
+          if len(sent_transactions) > 80:
             break
     except Exception:
       print(miner)
 
 print(sent_transactions)
-print(total_balance/1E8)
+print('total balance',total_balance/1E8)
 print(len(sent_transactions))
 
 #if total_balance == 0:

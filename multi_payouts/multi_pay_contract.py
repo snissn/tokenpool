@@ -27,20 +27,22 @@ class Multisend(object):
     self.w3 = Web3( infura_provider)
     self.pub_key,self.private_key = get_keys()
     self.w3.eth.enable_unaudited_features()
-
+    print("gas:",  int(self.w3.eth.gasPrice))
   
 
   def get_eth_block_number(self):
     return self.w3.eth.blockNumber
 
   def send_many(self,addresses, values, sent_transactions):
-    multisend = self.w3.eth.contract( address= "0xEE658666344CC57DA9C7d5fD569DBA0f19B771a8" , abi= [{"constant":false,"inputs":[{"name":"_tokenAddr","type":"address"},{"name":"dest","type":"address"},{"name":"value","type":"uint256"}],"name":"send","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"withdraw","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_tokenAddr","type":"address"},{"name":"dests","type":"address[]"},{"name":"values","type":"uint256[]"}],"name":"multisend","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"}] ) # first deployed with return
+    multisend = self.w3.eth.contract( address= "0x9303B501e06aded924b038278eC70fe115260e28" , abi= [{"constant":False,"inputs":[{"name":"_tokenAddr","type":"address"},{"name":"dest","type":"address"},{"name":"value","type":"uint256"}],"name":"send","outputs":[],"payable":False,"stateMutability":"nonpayable","type":"function"},{"constant":False,"inputs":[{"name":"_tokenAddr","type":"address"},{"name":"ltc","type":"address"},{"name":"dests","type":"address[]"},{"name":"values","type":"uint256[]"}],"name":"multisend2","outputs":[{"name":"","type":"uint256"}],"payable":False,"stateMutability":"nonpayable","type":"function"},{"constant":False,"inputs":[],"name":"withdraw","outputs":[],"payable":False,"stateMutability":"nonpayable","type":"function"},{"constant":False,"inputs":[{"name":"tokenAddrs","type":"address[]"},{"name":"numerators","type":"uint256[]"},{"name":"denominators","type":"uint256[]"},{"name":"dests","type":"address[]"},{"name":"values","type":"uint256[]"}],"name":"multisend3","outputs":[{"name":"","type":"uint256"}],"payable":False,"stateMutability":"nonpayable","type":"function"},{"constant":True,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":False,"stateMutability":"view","type":"function"},{"constant":False,"inputs":[{"name":"_tokenAddr","type":"address"},{"name":"dests","type":"address[]"},{"name":"values","type":"uint256[]"}],"name":"multisend","outputs":[{"name":"","type":"uint256"}],"payable":False,"stateMutability":"nonpayable","type":"function"},{"constant":False,"inputs":[{"name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":False,"stateMutability":"nonpayable","type":"function"}] )
+    
     nonce = self.w3.eth.getTransactionCount(self.pub_key)
-    print("gas:",  int(self.w3.eth.gasPrice*1.2))
+    print("gas:",  int(self.w3.eth.gasPrice))
 
-    multisend_tx = multisend.functions.multisend2("0xB6eD7644C69416d67B522e20bC294A9a9B405B31", "0x33d99efc0c3cc4f93da6931ec2cccf19ca874b6d",addresses,values).buildTransaction({
+    #multisend_tx = multisend.functions.multisend3(["0xB6eD7644C69416d67B522e20bC294A9a9B405B31", "0x33D99EFc0C3cC4F93dA6931EC2CCcF19Ca874b6D"], [1,4],[1,1] ,addresses,values).buildTransaction({
+    multisend_tx = multisend.functions.multisend3(["0xB6eD7644C69416d67B522e20bC294A9a9B405B31", "0x33D99EFc0C3cC4F93dA6931EC2CCcF19Ca874b6D", "0x291DE53a16b76dfE28551Fd3335225F506dB8b82"], [1,4,1600],[1,1,50] ,addresses,values).buildTransaction({
            #'chainId': web3.eth.net.getId() ,
-           'gas': 3216028,
+           'gas': 6216028,
            'from': self.pub_key,
            'gasPrice': int(self.w3.eth.gasPrice*1.2),
            'nonce': nonce,
@@ -102,19 +104,19 @@ class Multisend(object):
     ebtc = self.w3.eth.contract( address=btc.address, abi=btc.abi )
     print(ebtc.functions.transfer)
     nonce = self.w3.eth.getTransactionCount(self.pub_key)
-    print({'gasPrice': int(self.w3.eth.gasPrice*1.2)})
+    print({'gasPrice': int(self.w3.eth.gasPrice/1)})
     multisend_tx = ebtc.functions.transfer(address, value).buildTransaction({
            #'chainId': web3.eth.net.getId() ,
            'gas': 62608,
            'from': self.pub_key,
-           'gasPrice': int(self.w3.eth.gasPrice*1.2),
+           'gasPrice': int(self.w3.eth.gasPrice/1),
            'nonce': nonce,
        })
     signed_txn = self.w3.eth.account.signTransaction(multisend_tx, private_key=self.private_key)
     self.w3.eth.sendRawTransaction(signed_txn.rawTransaction)
 
     hex_transaction = self.w3.toHex(self.w3.sha3(signed_txn.rawTransaction))
-    for i in range(90*2): # 90 minutes
+    for i in range(360*2*10): # 6 hours
       print("checking transaction", hex_transaction)
       confirmation = self.w3.eth.getTransactionReceipt(hex_transaction)
       print("confirmation:", confirmation)
