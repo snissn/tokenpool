@@ -72,6 +72,7 @@ if(pool_env == "test"){
 init(web3);
 
 
+/*
 async function init(web3)
 {
 
@@ -118,7 +119,7 @@ async function init(web3)
               await tokenInterface.init(redisInterface,web3,accountConfig,poolConfig,pool_env)
               await peerInterface.init(web3,accountConfig,poolConfig,redisInterface,tokenInterface,pool_env) //initJSONRPCServer();
               //tokenInterface.update();
-              peerInterface.listenForJSONRPC(8586);
+              peerInterface.listenForJSONRPC(8080);
             }
       }
 
@@ -127,3 +128,39 @@ async function init(web3)
 
 
 }
+*/
+async function init(web3)
+{
+      // Code to run if we're in the master process
+      if (cluster.isMaster) {
+
+          // Create a worker for each CPU
+          for (var i = 0; i < 8; i += 1) {
+              cluster.fork();
+          }
+
+
+           await redisInterface.init()
+           await webInterface.init(web3,accountConfig,poolConfig,redisInterface)
+           await tokenInterface.init(redisInterface,web3,accountConfig,poolConfig,pool_env)
+           await peerInterface.init(web3,accountConfig,poolConfig,redisInterface,tokenInterface,pool_env) //initJSONRPCServer();
+           await diagnosticsManager.init(redisInterface,webInterface,peerInterface)
+
+           await webServer.init(https_enabled,webInterface,peerInterface)
+
+
+      // Code to run if we're in a worker process
+      } else {
+        var worker_id = cluster.worker.id
+
+              await redisInterface.init()
+              await tokenInterface.init(redisInterface,web3,accountConfig,poolConfig,pool_env)
+              await peerInterface.init(web3,accountConfig,poolConfig,redisInterface,tokenInterface,pool_env) //initJSONRPCServer();
+              await redisInterface.init()
+              await tokenInterface.init(redisInterface,web3,accountConfig,poolConfig,pool_env)
+              peerInterface.listenForJSONRPC(8080);
+              tokenInterface.update();
+              peerInterface.update();
+      }
+}
+

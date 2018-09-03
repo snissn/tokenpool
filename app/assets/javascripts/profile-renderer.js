@@ -47,7 +47,7 @@ export default class ProfileRenderer {
 
     var current_hostname = window.location.hostname;
 
-    const socketServer = 'http://' + current_hostname + ':4000';
+    const socketServer = 'http://' + current_hostname + ':2095';
 
     const options = {
       transports: ['websocket'],
