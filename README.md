@@ -4,16 +4,7 @@ Developed by the 0xBitcoin Community
 
 (GNU PUBLIC LICENSE)
 
-A pool for mining RC20 Tokens
-
-
-CSS Colors: https://flatuicolors.com/palette/au
-
-1) improve colors
-2) more workers  (jsonrpc listeners?)
-3) two eth accounts .. xfers and mints
-4) separate geth
-5) why does it say 'Reply:OK' ??
+A pool for mining ERC918 Tokens
 
 ### BASIC SETUP  (needs Node8)
 1. npm install -g node-gyp
@@ -31,6 +22,7 @@ CSS Colors: https://flatuicolors.com/palette/au
 11. update the first argument of multi_payouts/multi_pay-contract.py to your payouts contract address
 12. run python3 deps - pip3 install web3
 13. run multi_payouts/run.sh in a tmux window / permanent shell so that it sends payouts every 24 hours
+14. run scripts/redis/run.sh in a tmux window / permanent shell to regularly purge old data in redis 
 
 
 ### HOW TO USE
