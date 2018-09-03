@@ -26,23 +26,6 @@ A pool for mining ERC918 Tokens
 
 
 ### HOW TO USE
-1. Point a poolminer at your pool using http://localhost:8586  (or ipaddress:8586 or domain.com:8586)  (make sure firewall allows this port)
-2. View website interface at http://localhost:3000 (you can set up nginx to serve the static files in /public)
+1. Point a poolminer at your pool using http://localhost:8080  (or ipaddress:8080 or domain.com:8080)  (make sure firewall allows this port)
+2. View website interface at http://localhost (you can set up nginx to serve the static files in /public)
 
-
-## Installing Redis  
-  1. sudo apt-get install redis
-  2. sudo service redis-server start
-
-   - Redis will serve/connect at localhost:6379 by default - the pool will use this port
-
-## Redis Commands
-
-LRANGE broadcasted_payments 0 -1
-
-
-
-
-## TODO / BUGS
-- Add more clustering/workers and more JSONRPC/socket ports to handle heavy loads
-- Make sure good solns ARE BEING TRANFERRED
