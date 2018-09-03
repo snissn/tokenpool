@@ -26,6 +26,11 @@ CSS Colors: https://flatuicolors.com/palette/au
 6. Edit pool.config.js to your tastes
 7. Edit the website files in /app  to change the look of the website
 8. npm run server #(or npm run server test for Ropsten test net)
+9. Deploy the multisend payouts contract (https://remix.ethereum.org) 
+10. Deploy the mint helper contract (https://remix.ethereum.org) and update account.config.js with that address 
+11. update the first argument of multi_payouts/multi_pay-contract.py to your payouts contract address
+12. run python3 deps - pip3 install web3
+13. run multi_payouts/run.sh in a tmux window / permanent shell so that it sends payouts every 24 hours
 
 
 ### HOW TO USE
