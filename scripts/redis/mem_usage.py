@@ -2,7 +2,7 @@ import redis
 import json
 import time
 now = time.time()
-r = redis.StrictRedis()
+r = redis.StrictRedis(host='10.142.0.4')
 pipe = r.pipeline()
 
 
@@ -20,10 +20,12 @@ for key in keys:
   if hours > 24*7:
     pipe.hdel("submitted_share",key)
     if i % (64*1024) == 0:
-      print key
-      pipe.execute()
+      print key, data
+      #pipe.execute()
     i+=1
 
+import sys
+sys.exit(0)
 
 
 
@@ -44,4 +46,5 @@ def prune_invalid_shares():
 
 
 
+prune_invalid_shares()
 

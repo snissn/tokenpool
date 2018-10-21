@@ -1,7 +1,7 @@
 import redis
 import json
 import time
-r = redis.StrictRedis()
+r = redis.StrictRedis(host='10.142.0.4')
 now = time.time()
 for key in r.keys("*"):
   if key.startswith(b"miner_invalid_share") or key.startswith(b"miner_submitted_share"):
@@ -13,6 +13,8 @@ for key in r.keys("*"):
         break
     r.ltrim(key, 0, index+1)
     print "r.ltrim(",key, 0, index+1, ")"
+import sys
+sys.exit(0)
 
 
 
