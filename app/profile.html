@@ -121,7 +121,15 @@
         <li class="nav-item">
           <a class="nav-link" data-toggle="tab" href="#minerBalanceTransfersList">Balance Transfer Receipts</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#minerRewardsList">Mining Rewards</a>
+        </li>
       </ul>
+
+
+
+
+
       <div class="tab-content">
         <div id="minerSubmittedSharesList" class="tab-pane active box background-secondary " style="overflow-x:auto; min-height:480px;">
           <div class='subtitle'>Submitted Shares</div>
@@ -196,6 +204,36 @@
             </table>
             <p> There may be multiple Pool Payout Ids in the table, if there are that means the pool attempted to payout for that ID multiple times, until it is confirmed by the ethereum network.</p>
           </div>
+        </div>
+        <div id="minerRewardsList" class="tab-pane active box background-secondary " style="overflow-x:auto; min-height:480px;">
+          <div class='subtitle'>Miner Rewards </div>
+          <table class='table '>
+            <thead>
+              <tr>
+                <td> Time </td>
+                <td> Your Shares </td>
+                <td> Total Pool Shares </td>
+                <td> Your Percent of Pool Shares </td>
+                <td> Your 0xBitcoin Reward</td>
+                <td> Previous Unpaid Balance </td>
+                <td> New Unpaid balance </td>
+                <td> Total 0xBitcoin Paid out</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(item, index) in rewards.share_list">
+                <td><a   v-bind:href='item.txlink'  target=_blank> {{ item.timeFormatted }} </a></td>
+                <td> {{ item.shares }} </td>
+                <td> {{ item.totalShares }} </td>
+                <td> {{ Math.round(item.shares / item.totalShares*100*100)/100 }}% </td>
+                <td> {{ Math.round(item.reward/1E8*100)/100 }} </td>
+                <td> {{ Math.round(item.previousTokenBalance/1E8*100)/100 }}</td>
+                <td> {{ Math.round(item.newTokenBalance/1E8*100)/100 }}</td>
+                <td> {{  Math.round(item.tokensAwarded/1E8*100)/100 }} </td>
+
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
 

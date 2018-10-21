@@ -12,6 +12,7 @@ var minerBalancePaymentsList;
 var minerBalanceTransfersList;
 var minerSubmittedSharesList;
 var minerInvalidSharesList;
+var minerRewardsList;
 
 var jumbotron;
 
@@ -129,6 +130,18 @@ export default class ProfileRenderer {
 
 
       Vue.set(minerSubmittedSharesList, 'shares', {
+        share_list: data.slice(0, 50)
+      })
+
+    });
+
+    this.socket.on('minerRewards', function (data) {
+
+
+      data.map(item => item.timeFormatted = self.formatTime(item.time))
+      data.map(item => item.txlink = "https://etherscan.io/tx/"+item.id );
+      console.log('got minerReward', data)
+      Vue.set(minerRewardsList, 'rewards', {
         share_list: data.slice(0, 50)
       })
 
@@ -255,6 +268,15 @@ export default class ProfileRenderer {
       },
     })
 
+    minerRewardsList = new Vue({
+      el: '#minerRewardsList',
+      data: {
+        rewards: {
+          reward_list: []
+        },
+      },
+    })
+
     minerInvalidSharesList = new Vue({
       el: '#minerInvalidSharesList',
       data: {
@@ -282,9 +304,14 @@ export default class ProfileRenderer {
     this.socket.emit('getMinerSubmittedShares', {
       address: minerAddress
     });
+
     this.socket.emit('getMinerInvalidShares', {
       address: minerAddress
     });
+    this.socket.emit('getMinerRewards', {
+      address: minerAddress
+    });
+
 
 
 
@@ -316,6 +343,9 @@ export default class ProfileRenderer {
       address: minerAddress
     });
     this.socket.emit('getMinerInvalidShares', {
+      address: minerAddress
+    });
+    this.socket.emit('getMinerRewards', {
       address: minerAddress
     });
 
