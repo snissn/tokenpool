@@ -148,6 +148,7 @@ async function init(web3)
 
            await webServer.init(https_enabled,webInterface,peerInterface)
 
+            peerInterface.update();
 
       // Code to run if we're in a worker process
       } else {
