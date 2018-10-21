@@ -147,6 +147,7 @@ async function init(web3)
            await diagnosticsManager.init(redisInterface,webInterface,peerInterface)
 
            await webServer.init(https_enabled,webInterface,peerInterface)
+          peerInterface.update();
 
 
       // Code to run if we're in a worker process
