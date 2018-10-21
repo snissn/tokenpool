@@ -55,7 +55,7 @@ class Multisend(object):
       print("checking transaction", hex_transaction)
       confirmation = self.w3.eth.getTransactionReceipt(hex_transaction)
       print("confirmation:", confirmation)
-      if confirmation and confirmation['blockNumber']:
+      if confirmation and confirmation['blockNumber'] and (self.w3.eth.blockNumber - confirmation['blockNumber']) > 10:
         if not confirmation['status']:
           raise
         return self.update_redis(sent_transactions, hex_transaction)
@@ -109,7 +109,7 @@ class Multisend(object):
            #'chainId': web3.eth.net.getId() ,
            'gas': 62608,
            'from': self.pub_key,
-           'gasPrice': int(self.w3.eth.gasPrice/1),
+           'gasPrice': int(self.w3.eth.gasPrice*1.2),
            'nonce': nonce,
        })
     signed_txn = self.w3.eth.account.signTransaction(multisend_tx, private_key=self.private_key)
@@ -120,7 +120,7 @@ class Multisend(object):
       print("checking transaction", hex_transaction)
       confirmation = self.w3.eth.getTransactionReceipt(hex_transaction)
       print("confirmation:", confirmation)
-      if confirmation and confirmation['blockNumber']:
+      if confirmation and confirmation['blockNumber'] and (self.w3.eth.blockNumber - confirmation['blockNumber']) > 10:
         if not confirmation['status']:
           raise
         return self.update_one( pubkey, value, hex_transaction)
