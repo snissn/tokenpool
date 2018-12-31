@@ -40,7 +40,9 @@ class Multisend(object):
     print("gas:",  int(self.w3.eth.gasPrice))
 
     #multisend_tx = multisend.functions.multisend3(["0xB6eD7644C69416d67B522e20bC294A9a9B405B31", "0x33D99EFc0C3cC4F93dA6931EC2CCcF19Ca874b6D"], [1,4],[1,1] ,addresses,values).buildTransaction({
-    multisend_tx = multisend.functions.multisend3(["0xB6eD7644C69416d67B522e20bC294A9a9B405B31", "0x33D99EFc0C3cC4F93dA6931EC2CCcF19Ca874b6D", "0x291DE53a16b76dfE28551Fd3335225F506dB8b82"], [1,4,1600],[1,1,50] ,addresses,values).buildTransaction({
+    #multisend_tx = multisend.functions.multisend3(["0xB6eD7644C69416d67B522e20bC294A9a9B405B31", "0x0F00f1696218EaeFa2D2330Df3D6D1f94813b38f"], [1,1],[1,2] ,addresses,values).buildTransaction({ # sedo
+    multisend_tx = multisend.functions.multisend3(["0xB6eD7644C69416d67B522e20bC294A9a9B405B31"], [1],[1] ,addresses,values).buildTransaction({
+    #multisend_tx = multisend.functions.multisend3(["0xB6eD7644C69416d67B522e20bC294A9a9B405B31", "0x33D99EFc0C3cC4F93dA6931EC2CCcF19Ca874b6D", "0x291DE53a16b76dfE28551Fd3335225F506dB8b82"], [1,4,1600],[1,1,50] ,addresses,values).buildTransaction({
            #'chainId': web3.eth.net.getId() ,
            'gas': 6216028,
            'from': self.pub_key,
