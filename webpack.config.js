@@ -36,6 +36,8 @@ const routesData = {
     {url: '/account', title: 'Mining Accounts', template: 'app/account.html', filename: 'account/index.html'},
     {url: '/profile/:address', title: 'Mining Profile', template: 'app/profile.html', filename: 'profile/index.html'},
     {url: '/overview', title: 'Overview', template: 'app/overview.html', filename: 'overview/index.html'},
+    {url: '/terms_of_service', title: 'Terms of Service', template: 'app/terms_of_service.html', filename: 'terms_of_service/index.html'},
+    {url: '/privacy_policy', title: 'Privacy Policy', template: 'app/privacy_policy.html', filename: 'privacy_policy/index.html'},
   ]
 }
 
