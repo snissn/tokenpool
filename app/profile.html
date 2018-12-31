@@ -67,7 +67,7 @@
       <div class="card-body text-center">
         <h2 class="card-title">Accumulated Shares This Block</h2>
         <h4 class="card-text btn bitcoin-color" style='font-size:24px' v-cloak>
-        {{ miner.minerData.shareCredits / 65536 }} 
+        {{ Math.round(miner.minerData.shareCredits / 65536) }} 
         </h4>
       </div>
     </div>
@@ -80,6 +80,14 @@
         {{  miner.minerData.tokenBalanceFormatted }}  
         </h4>
       </div>
+      <!--
+      <div class="card-body text-center">
+        <h2 class="card-title">Unpaid Sedo Balance</h2>
+        <h4 class="card-text btn bitcoin-color" style='font-size:24px' v-cloak> 
+        {{  miner.minerData.tokenBalanceFormatted /2  }}  
+        </h4>
+      </div>
+      -->
     </div>
   </div>
   <div class="col-sm-3">
@@ -133,7 +141,7 @@
       <div class="tab-content">
         <div id="minerSubmittedSharesList" class="tab-pane active box background-secondary " style="overflow-x:auto; min-height:480px;">
           <div class='subtitle'>Submitted Shares</div>
-          <canvas id="submittedCanvas"></canvas>
+          <!--<canvas id="submittedCanvas"></canvas> -->
           <table class='table '>
             <thead>
               <tr>
@@ -157,7 +165,7 @@
         </div>
         <div id="minerInvalidSharesList" class="tab-pane box background-secondary " style="overflow-x:auto; min-height:480px;">
           <div class='subtitle'>Invalid Shares</div>
-          <canvas id="invalidCanvas"></canvas>
+          <!-- <canvas id="invalidCanvas"></canvas> -->
           <table class='table '>
             <thead>
               <tr>
