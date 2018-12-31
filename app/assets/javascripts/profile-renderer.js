@@ -75,7 +75,12 @@ export default class ProfileRenderer {
      data.etherscanURL = 'https://etherscan.io/token/0xb6ed7644c69416d67b522e20bc294a9a9b405b31?a=' + minerAddress.toString();
 
       data.tokensAwardedFormatted = self.formatTokenQuantity(data.tokensAwarded);
+      data.sedoTokensAwardedFormatted = self.formatTokenQuantity(data.sedoTokensAwarded);
+
       data.tokenBalanceFormatted = self.formatTokenQuantity(data.tokenBalance);
+
+      data.sedoTokenBalanceFormatted = self.formatTokenQuantity(data.sedoTokenBalance);
+
       data.hashRateFormatted = renderUtils.formatHashRate(data.hashRate);
 
       console.log('got miner details')
@@ -361,6 +366,10 @@ export default class ProfileRenderer {
 
   formatTokenQuantity(satoshis) {
     var quantity = (parseFloat(satoshis) / parseFloat(1e8)).toFixed(2)
+    if(isNaN(quantity)){
+      quantity = 0.0;
+      quantity = quantity.toFixed(2);
+    }
     return quantity;
   }
 

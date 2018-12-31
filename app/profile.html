@@ -89,13 +89,29 @@
       </div>
       -->
     </div>
-  </div>
-  <div class="col-sm-3">
     <div class="card">
       <div class="card-body text-center">
         <h2 class="card-title">Total 0xBitcoin Paid Out</h2>
         <h4 class="card-text btn bitcoin-color" style='font-size:24px' v-cloak>
         {{ miner.minerData.tokensAwardedFormatted }}
+        </h4>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3">
+    <div class="card">
+      <div class="card-body text-center">
+        <h2 class="card-title">Unpaid Sedo Balance</h2>
+        <h4 class="card-text btn bitcoin-color" style='font-size:24px' v-cloak> 
+        {{  miner.minerData.sedoTokenBalanceFormatted }}  
+        </h4>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body text-center">
+        <h2 class="card-title">Total Sedo Paid Out</h2>
+        <h4 class="card-text btn bitcoin-color" style='font-size:24px' v-cloak>
+        {{ miner.minerData.sedoTokensAwardedFormatted }}
         </h4>
       </div>
     </div>
@@ -226,6 +242,8 @@
                 <td> Previous Unpaid Balance </td>
                 <td> New Unpaid balance </td>
                 <td> Total 0xBitcoin Paid out</td>
+                <td> Your Sedo Reward</td>
+                <td> Sedo Unpaid balance </td>
               </tr>
             </thead>
             <tbody>
@@ -238,6 +256,9 @@
                 <td> {{ Math.round(item.previousTokenBalance/1E8*100)/100 }}</td>
                 <td> {{ Math.round(item.newTokenBalance/1E8*100)/100 }}</td>
                 <td> {{  Math.round(item.tokensAwarded/1E8*100)/100 }} </td>
+
+                <td> {{ Math.round(item.sedoReward/1E8*100)/100 }} </td>
+                <td> {{ Math.round(item.sedoTokenBalance/1E8*100)/100 }} </td>
 
               </tr>
             </tbody>
