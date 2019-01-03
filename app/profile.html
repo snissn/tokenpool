@@ -208,7 +208,8 @@
               <thead>
                 <tr>
                   <td> EthBlock </td>
-                  <td> Amount Sent </td>
+                  <td> 0xBitcoin Amount Sent </td>
+                  <td> Sedo Amount Sent </td>
                   <td> Confirmed Ethereum Transaction Id  </td>
                   <td> Pool Payout Id </td>
                 </tr>
@@ -217,6 +218,7 @@
                 <tr v-for="(item, index) in newTransactions">
                   <td> {{ item.block }} </td>
                   <td> {{ item.previousTokenBalanceFormatted }} </td>
+                  <td> {{ item.previousSedoTokenBalanceFormatted }} </td>
                   <td>
                     <a v-bind:href='item.etherscanTxURL'>
                       <p> {{ item.txHash }} </p>
@@ -257,8 +259,8 @@
                 <td> {{ Math.round(item.newTokenBalance/1E8*100)/100 }}</td>
                 <td> {{  Math.round(item.tokensAwarded/1E8*100)/100 }} </td>
 
-                <td> {{ Math.round(item.sedoReward/1E8*100)/100 }} </td>
-                <td> {{ Math.round(item.sedoTokenBalance/1E8*100)/100 }} </td>
+                <td> {{ Math.round((item.sedoReward||0)/1E8*100)/100 }} </td>
+                <td> {{ Math.round((item.sedoTokenBalance||0)/1E8*100)/100 }} </td>
 
               </tr>
             </tbody>

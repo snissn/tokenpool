@@ -96,6 +96,7 @@ export default class ProfileRenderer {
 
 
      data.map(item => item.previousTokenBalanceFormatted  = self.formatTokenQuantity(item.previousTokenBalance)    )
+     data.map(item => item.previousSedoTokenBalanceFormatted  = self.formatTokenQuantity(item.previousSedoTokenBalance)    )
      data.map(item => item.time  = self.ethBlockNumberToDateStr(item.block)    )
 
       console.log('got minerBalancePayments')
