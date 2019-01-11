@@ -1,2 +1,4 @@
-redis
-ethereum
+eth-utils==1.0.3
+redis==2.10.6
+etherereum==2.3.1
+
