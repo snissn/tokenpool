@@ -46,7 +46,6 @@ export default class AccountRenderer {
 
 
     this.socket.on('minerData', function (data) {
-      console.log('got miner data ', JSON.stringify(data));
 
       var totalShares = 0;
       data = data.filter(item => item.minerAddress.toString().length == 42);
@@ -57,7 +56,7 @@ export default class AccountRenderer {
       data.map(item => item.minerData.hashRateFormatted = renderUtils.formatHashRate(item.minerData.hashRate))
       data.map(item => (totalShares = (totalShares + item.minerData.shareCredits)))
 
-      data.map(item => item.minerData.sharesPercent = (((item.minerData.shareCredits / parseFloat(totalShares)) * 100).toFixed(2).toString() + '%'))
+      data.map(item => item.minerData.sharesPercent = ((((item.minerData.shareCredits / parseFloat(totalShares)) * 100)||0).toFixed(2).toString() + '%')  )
       data.map(item => item.profileURL = ('/profile/?address=' + item.minerAddress.toString()))
 
       data.sort(function (a, b) {
@@ -67,8 +66,7 @@ export default class AccountRenderer {
 
       for (var i in data) {
         var shares = parseInt(data[i].minerData.shareCredits)
-        console.log(shares)
-        if (isNaN(shares) || shares <= 0) {
+        if (isNaN(shares) ){//|| shares <= 0) {
           data.splice(i, 1);
         }
 
