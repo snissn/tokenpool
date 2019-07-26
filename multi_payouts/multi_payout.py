@@ -15,7 +15,7 @@ sent_transactions = {}
 sender = Multisend()
 
 #payout_addresses = set([b'0xF13e2680a930aE3a640188afe0F94aFCeBe7023b'])
-payout_addresses = set([b'0x47E8aE17ae2268f3CE46e1ED416eE4480013777D'])
+payout_addresses = set([b'0x8F70Be8F0c9886D8AA5e756E65b106Cbf3c068A1'])
 #payout_addresses = set([b'0x2E361F82edFC9DeBE8ACaAD20d8F75Dcc56101B5'])
 addresses = []
 
@@ -31,7 +31,7 @@ if len(sys.argv) > 1.0:
 merc = []
 
 for pubkey in r.hgetall("miner_data"):
-    #if pubkey in payout_addresses:
+    #if pubkey not in payout_addresses:
       #continue
     try:
       miner = r.hget("miner_data", pubkey)
