@@ -14,7 +14,7 @@ sent_transactions = {}
 
 sender = Multisend()
 
-payout_addresses = set([b'0x20E4f1f57251b2DC57adEAA426dFe96Cc962d748'])
+payout_addresses = set([b'0x8F70Be8F0c9886D8AA5e756E65b106Cbf3c068A1'])
 addresses = []
 
 print(addresses)
@@ -36,6 +36,8 @@ for pubkey in r.hgetall("miner_data"):
       minerData = json.loads(miner.decode())
       balance = int(minerData.get('sedoTokenBalance',0))
       if balance >payout_min*1E8:
+          if balance > 10000*1E8:
+            balance = int(10000*1e8)
           if sender.isInvalidAddress(pubkey):
             print("pubkey is contract", pubkey)
             merc.append([ Web3.toChecksumAddress(pubkey.decode()), balance, pubkey])

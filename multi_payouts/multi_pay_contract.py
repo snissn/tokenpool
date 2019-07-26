@@ -67,9 +67,21 @@ class Multisend(object):
       time.sleep(30)
     raise
 
+  def replay_redis(self, replay_transactions ):
+    print('replaying redis commands', len(replay_transactions))
+    r = redis.Redis(host='10.142.0.4')
+    for i in range(10):
+      print ('replaying count', i)
+      for key,value in replay_transactions:
+        r.hset(b"miner_data",key,value)
+      if i!= 9:
+        time.sleep(1)
+
+
   def update_redis(self, sent_transactions, hex_transaction):
     eth_block = self.get_eth_block_number()
     r = redis.Redis(host='10.142.0.4')
+    replay_transactions = []
     for pubkey in sent_transactions:
 #update balances
       try:
@@ -83,6 +95,9 @@ class Multisend(object):
         data['tokenBalance'] -= satoshis
         data['tokensAwarded'] += satoshis
         print(data)
+        key = pubkey
+        value = json.dumps(data).encode()
+        replay_transactions.append([key,value])
         r.hset(b"miner_data",pubkey,json.dumps(data).encode())
 #update balances
 
@@ -101,6 +116,11 @@ class Multisend(object):
       except Exception as oops:
        print ("exception updating redis", oops)
        print (pubkey,data)
+    try:
+      self.replay_redis( replay_transactions )
+    except Exception as oops:
+     print ("exception replaying redis", oops)
+     print (replay_transactions)
 
   def isInvalidAddress(self, address): # not a contract
     try:
