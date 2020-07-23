@@ -24,6 +24,7 @@ def get_keys():
 class Multisend(object):
   def __init__(self):
     infura_provider = HTTPProvider( "https://mainnet.infura.io/v3/b9f719958d49483495940b00e2392204")
+    infura_provider = HTTPProvider('https://mainnet.infura.io/v3/f587bf6553614a0b91e83e22ec6e5a50')
     #infura_provider = HTTPProvider('http://localhost:8545')
     self.w3 = Web3( infura_provider)
     self.pub_key,self.private_key = get_keys()
@@ -45,9 +46,9 @@ class Multisend(object):
     multisend_tx = multisend.functions.multisend3(["0xB6eD7644C69416d67B522e20bC294A9a9B405B31"], [1],[1] ,addresses,values).buildTransaction({
     #multisend_tx = multisend.functions.multisend3(["0xB6eD7644C69416d67B522e20bC294A9a9B405B31", "0x33D99EFc0C3cC4F93dA6931EC2CCcF19Ca874b6D", "0x291DE53a16b76dfE28551Fd3335225F506dB8b82"], [1,4,1600],[1,1,50] ,addresses,values).buildTransaction({
            #'chainId': web3.eth.net.getId() ,
-           'gas': 6216028,
+           'gas': 3216028,
            'from': self.pub_key,
-           'gasPrice': int(self.w3.eth.gasPrice*3),
+           'gasPrice': int(self.w3.eth.gasPrice),
            'nonce': nonce,
        })
     signed_txn = self.w3.eth.account.signTransaction(multisend_tx, private_key=self.private_key)
@@ -55,7 +56,10 @@ class Multisend(object):
     hex_transaction = self.w3.toHex(self.w3.sha3(signed_txn.rawTransaction))
     for i in range(360*2*10): # 6 hours
       print("checking transaction", hex_transaction)
-      confirmation = self.w3.eth.getTransactionReceipt(hex_transaction)
+      try:
+        confirmation = self.w3.eth.getTransactionReceipt(hex_transaction)
+      except Exception:
+        confirmation = None
       print("confirmation:", confirmation)
       if confirmation and confirmation['blockNumber']:
         if not confirmation['status']:
@@ -139,7 +143,7 @@ class Multisend(object):
            #'chainId': web3.eth.net.getId() ,
            'gas': 62608,
            'from': self.pub_key,
-           'gasPrice': int(self.w3.eth.gasPrice*3),
+           'gasPrice': int(self.w3.eth.gasPrice),
            'nonce': nonce,
        })
     signed_txn = self.w3.eth.account.signTransaction(multisend_tx, private_key=self.private_key)

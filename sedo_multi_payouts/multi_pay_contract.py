@@ -23,6 +23,7 @@ def get_keys():
 class Multisend(object):
   def __init__(self):
     infura_provider = HTTPProvider('https://mainnet.infura.io/v3/b9f719958d49483495940b00e2392204')
+    infura_provider = HTTPProvider('https://mainnet.infura.io/v3/f587bf6553614a0b91e83e22ec6e5a50')
     #infura_provider = HTTPProvider('http://localhost:8545')
     self.w3 = Web3( infura_provider)
     self.pub_key,self.private_key = get_keys()
@@ -57,7 +58,10 @@ class Multisend(object):
     hex_transaction = self.w3.toHex(self.w3.sha3(signed_txn.rawTransaction))
     for i in range(360*2*10): # 6 hours
       print("checking transaction", hex_transaction)
-      confirmation = self.w3.eth.getTransactionReceipt(hex_transaction)
+      try:
+        confirmation = self.w3.eth.getTransactionReceipt(hex_transaction)
+      except Exception:
+        confirmation = None
       print("confirmation:", confirmation)
       if confirmation and confirmation['blockNumber']:
         if not confirmation['status']:

@@ -149,6 +149,8 @@ async function init(web3)
            await webServer.init(https_enabled,webInterface,peerInterface)
 
             peerInterface.update();
+              //peerInterface.listenForJSONRPC(8080);
+              tokenInterface.update();
 
       // Code to run if we're in a worker process
       } else {
