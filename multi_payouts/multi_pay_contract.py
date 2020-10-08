@@ -46,7 +46,7 @@ class Multisend(object):
     multisend_tx = multisend.functions.multisend3(["0xB6eD7644C69416d67B522e20bC294A9a9B405B31"], [1],[1] ,addresses,values).buildTransaction({
     #multisend_tx = multisend.functions.multisend3(["0xB6eD7644C69416d67B522e20bC294A9a9B405B31", "0x33D99EFc0C3cC4F93dA6931EC2CCcF19Ca874b6D", "0x291DE53a16b76dfE28551Fd3335225F506dB8b82"], [1,4,1600],[1,1,50] ,addresses,values).buildTransaction({
            #'chainId': web3.eth.net.getId() ,
-           'gas': 3216028,
+           'gas': 516028,
            'from': self.pub_key,
            'gasPrice': int(self.w3.eth.gasPrice),
            'nonce': nonce,
