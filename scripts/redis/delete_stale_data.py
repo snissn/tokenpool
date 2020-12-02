@@ -12,20 +12,32 @@ cutoff_blockno = blocknumber - 1000 # 1000 blocks is around 4 hours
 
 
 
-
-
-for key in r.keys("*"):
-  if key.startswith(b"miner_invalid_share") or key.startswith(b"miner_submitted_share"):
+def delete_stale_list(prefix):
+  for key in r.keys(prefix['prefix']+"*"):
     for index, l in enumerate(r.lrange(key,0,-1)):
       row = json.loads(l)
       seconds = now - row['time']
       hours = seconds / 60/60 
-      if hours > 2:
+      if hours > prefix['hours']:
         break
     r.ltrim(key, 0, index+1)
-    print "r.ltrim(",key, 0, index+1, ")"
 
+prefixes = [{"prefix":b"miner_invalid_share", "hours":1},{"prefix": b"miner_submitted_share","hours":1},{"prefix":b"miner_reward", "hours":24*14}]
+for prefix in prefixes:
+  delete_stale_list(prefix)
 
+#for key in r.keys("*"):
+  #if key.startswith(b"miner_invalid_share") or key.startswith() or key.startswith():
+    #for index, l in enumerate(r.lrange(key,0,-1)):
+      #row = json.loads(l)
+      #seconds = now - row['time']
+      #hours = seconds / 60/60 
+      #if hours > 24*14:
+        ##break
+    #r.ltrim(key, 0, index+1)
+    #print "r.ltrim(",key, 0, index+1, ")"
+#
+#
 
 
 

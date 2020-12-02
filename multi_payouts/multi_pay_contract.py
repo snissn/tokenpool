@@ -12,6 +12,15 @@ import redis
 
 import btc
 
+def get_keys_minting():
+  folder = os.path.dirname(os.path.realpath(__file__))
+  lines = open(folder+"/../account.config.js").read().splitlines()
+  for index, line in enumerate(lines):
+    if "minting" in line:
+      pub = lines[index+1].split("'")[1].split("'")[0]
+      private = lines[index+2].split("'")[1].split("'")[0]
+      return pub,private
+
 def get_keys():
   folder = os.path.dirname(os.path.realpath(__file__))
   lines = open(folder+"/../account.config.js").read().splitlines()
@@ -28,6 +37,7 @@ class Multisend(object):
     #infura_provider = HTTPProvider('http://localhost:8545')
     self.w3 = Web3( infura_provider)
     self.pub_key,self.private_key = get_keys()
+    self.pub_key_minting,self.private_key_minting = get_keys_minting()
     self.w3.eth.enable_unaudited_features()
     print("gas:",  int(self.w3.eth.gasPrice))
   
@@ -46,7 +56,7 @@ class Multisend(object):
     multisend_tx = multisend.functions.multisend3(["0xB6eD7644C69416d67B522e20bC294A9a9B405B31"], [1],[1] ,addresses,values).buildTransaction({
     #multisend_tx = multisend.functions.multisend3(["0xB6eD7644C69416d67B522e20bC294A9a9B405B31", "0x33D99EFc0C3cC4F93dA6931EC2CCcF19Ca874b6D", "0x291DE53a16b76dfE28551Fd3335225F506dB8b82"], [1,4,1600],[1,1,50] ,addresses,values).buildTransaction({
            #'chainId': web3.eth.net.getId() ,
-           'gas': 516028,
+           'gas': 2916028,
            'from': self.pub_key,
            'gasPrice': int(self.w3.eth.gasPrice),
            'nonce': nonce,
@@ -133,20 +143,28 @@ class Multisend(object):
       print(oops)
       return False
 
-  def transfer(self, address, value, pubkey, update_redis=True):
+  def transfer(self, address, value, pubkey, update_redis=True, sender="pay"):
+    if value == 0:
+      print("no balance not making tx", address, value, pubkey, update_redis, sender)
+      return None
+
+    pub_key = self.pub_key
+    private_key = self.private_key
+    if sender=="mint":
+      pub_key = self.pub_key_minting
+      private_key = self.private_key_minting
   
     ebtc = self.w3.eth.contract( address=btc.address, abi=btc.abi )
     print(ebtc.functions.transfer)
-    nonce = self.w3.eth.getTransactionCount(self.pub_key)
-    print({'gasPrice': int(self.w3.eth.gasPrice*2)})
+    nonce = self.w3.eth.getTransactionCount(pub_key)
     multisend_tx = ebtc.functions.transfer(address, value).buildTransaction({
            #'chainId': web3.eth.net.getId() ,
            'gas': 62608,
-           'from': self.pub_key,
+           'from': pub_key,
            'gasPrice': int(self.w3.eth.gasPrice),
            'nonce': nonce,
        })
-    signed_txn = self.w3.eth.account.signTransaction(multisend_tx, private_key=self.private_key)
+    signed_txn = self.w3.eth.account.signTransaction(multisend_tx, private_key=private_key)
     self.w3.eth.sendRawTransaction(signed_txn.rawTransaction)
 
     hex_transaction = self.w3.toHex(self.w3.sha3(signed_txn.rawTransaction))
