@@ -11,9 +11,5 @@ r = redis.StrictRedis(host='10.142.0.4')
 key = "submitted_share"
 for hkey in r.hkeys(key):
   row = json.loads(r.hget(key,hkey))
-  seconds = now - row['time']
-  hours = seconds / 60/60 
-  if hours > 1:
-    r.hdel(key, hkey)
-    #print key,hkey
+  print hkey, row
 
