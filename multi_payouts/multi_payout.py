@@ -1,3 +1,4 @@
+import etherscan 
 import redis
 import sys
 import time
@@ -37,11 +38,11 @@ for pubkey in r.hgetall("miner_data"):
       miner = r.hget("miner_data", pubkey)
       minerData = json.loads(miner.decode())
       balance = int(minerData['tokenBalance'])
-      if balance >payout_min*1E8:
+      if balance > float(payout_min)*1E8 and balance > 3*1E8:
           if sender.isInvalidAddress(pubkey):
             print("pubkey is contract", pubkey)
             merc.append([ Web3.toChecksumAddress(pubkey.decode()), balance, pubkey])
-            total_balance += balance
+            #total_balance += balance
             continue
           addresses.append(Web3.toChecksumAddress(pubkey.decode()))
           sent_transactions[pubkey.decode()] = balance
@@ -59,15 +60,52 @@ print(len(sent_transactions))
 #if total_balance == 0:
   #sys.exit(0)
 
-print(merc)
+for row in merc:
+  print(row, row[1]/1.0e8)
 #require --pay
 if not '--pay' in sys.argv:
   print('no pay')
   sys.exit(0)
 
 print('pay')
+payout_address = '0xdD93Cfb9ABB42F21f8c6D9e9beF2C4F94d7c898A'
+payout_contract = '0x9303B501e06aded924b038278eC70fe115260e28'
 
-if len(sent_transactions) > 0:
+
+address_balance = etherscan.payment_token_balance()
+contract_balance = etherscan.contract_token_balance()
+
+address_total_satoshis = 0
+for address, satoshis, pubkey in merc:
+  address_total_satoshis+=satoshis
+
+#address_total_satoshis is how much we need to payout from the 0xdd address. if the balance of the 0xdd adress is greater than address_total_satoshis do nothing otherwise send the difference to the 0xdd address account.
+
+payout_address_difference = address_total_satoshis - address_balance
+if payout_address_difference > 0:
+  print('sending tokens to the 0xdd wallet account: ' , payout_address_difference /1E8)
+  sender.transfer(payout_address,payout_address_difference, payout_address, update_redis=False,sender="mint")
+print( "address balance is ", address_balance)
+
+print('first thing value is ', address_total_satoshis)
+print('first thing diff value is ', address_total_satoshis - address_balance )
+print('first thing diff value  readable is ', float(address_total_satoshis - address_balance )/1E8)
+
+
+#total_balance is how much we need to send out from the payment contract ( we should rename it lol)
+#transfer total_balance - contract_balance to the payout contract, assuming that value is less than 0
+
+payout_contract_token_difference = total_balance - contract_balance
+if payout_contract_token_difference > 0:
+  print("sending tokens to payouts contract so the payout can succeed", payout_contract_token_difference)
+  sender.transfer(payout_contract,payout_contract_token_difference, payout_contract, update_redis=False,sender="mint")
+
+print( "contract balance is ", contract_balance)
+print('amount needed second thing value is ', total_balance)
+print('second thing diff value is ', total_balance - contract_balance )
+print('second thing diff value  readable is ', float(total_balance - contract_balance )/1E8)
+
+if True and len(sent_transactions) > 0:
   txID = sender.send_many(addresses, payouts, sent_transactions)
   time.sleep(60)
 #multi_pay_contract.update_redis(sent_transactions)
