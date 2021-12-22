@@ -135,7 +135,7 @@ async function init(web3)
       if (cluster.isMaster) {
 
           // Create a worker for each CPU
-          for (var i = 0; i < 8; i += 1) {
+          for (var i = 0; i < 3; i += 1) {
               cluster.fork();
           }
 
