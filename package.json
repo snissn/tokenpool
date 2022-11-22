@@ -44,7 +44,7 @@
     "moment": "^2.21.0",
     "node-fetch": "^2.6.1",
     "redis": "^2.8.0",
-    "socket.io": "^2.0.4",
+    "socket.io": "^2.5.0",
     "socket.io-client": "^2.0.4",
     "vue": "^2.5.13",
     "web3": "^1.0.0-beta.28",
